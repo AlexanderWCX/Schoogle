@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jquery-3.3.1.min.js"></script>
+    <title>Schoogle</title>
+  </head>
+  <body>
+    <h1>Schoogle</h1>
+    <form>
+      Email:<br />
+      <input type="email" name="email" /><br /><!--//check if email is valid-->
+
+      Password:<br />
+      <input type="password" name="password" /><br />
+      <!--check if password has at least 8
+      characters, 1 capital letter and 1 number-->
+
+      Re-enter Password:<br />
+      <input type="password" name="passwordcheck" /><br />
+      <!--check if password reentered
+      is the same-->
+
+      Postal Code: (optional)<br />
+      <input type="number" name="postalcode" maxlength="6" /><br />
+      <!--if not filled in, auto fill as
+      "NIL"-->
+
+      <input type="submit" value="Sign Up!" />
+    </form>
+  </body>
+</html>
