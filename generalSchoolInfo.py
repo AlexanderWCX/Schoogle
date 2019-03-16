@@ -1,10 +1,12 @@
-#https://data.gov.sg/api/action/datastore_search?resource_id=ede26d32-01af-4228-b1ed-f05c45a1d8ee&q=SECONDARY
-#q=SECONDARY
+#commented
 
-import csv
+#make api call to get json data; https://data.gov.sg/api/action/datastore_search?resource_id=ede26d32-01af-4228-b1ed-f05c45a1d8ee&q=SECONDARY
+
+#import libraries
+import xlwt
 import json
 
-#json data from the API
+#format json data
 x = """[{
 "_full_count": "193",
 "fax_no": "67633577",
@@ -3968,29 +3970,36 @@ x = """[{
 }
 ]"""
 
+#convert from json to dict
 x = json.loads(x)
 
-#open the csv file
-f = csv.writer(open('generalSchoolInfo.csv', 'w'))
+#get data from dict and write to excel database
 
-#write the column headers
-f.writerow(
-    ["_full_count", "fax_no", "gifted_ind", "mothertongue3_code", "fifth_vp_name", "rank", "postal_code", "type_code",
+#open a workbook
+wb = xlwt.Workbook()
+
+#open a worksheet
+ws = wb.add_sheet('generalSchoolInfo')
+
+#write column headers
+headers = ["_full_count", "fax_no", "gifted_ind", "mothertongue3_code", "fifth_vp_name", "rank", "postal_code", "type_code",
      "second_vp_name", "first_vp_name", "mainlevel_code", "email_address", "sap_ind", "cluster_code", "telephone_no_2",
      "philosophy_culture_ethos", "mrt_desc", "bus_desc", "third_vp_name", "telephone_no", "ip_ind", "special_sdp_offered", "principal_name",
-     "mothertongue1_code", "nature_code", "visionstatement_desc", "fourth_vp_name", "missionstatement_desc", "autonomous_ind", "session_code", 
-	 "school_name", "dgp_code", "address", "sixth_vp_name", "mothertongue2_code", "fax_no_2", "zone_code", "_id", "url_address"])
+     "mothertongue1_code", "nature_code", "visionstatement_desc", "fourth_vp_name", "missionstatement_desc", "autonomous_ind", "session_code",
+	 "school_name", "dgp_code", "address", "sixth_vp_name", "mothertongue2_code", "fax_no_2", "zone_code", "_id", "url_address"]
 
-#write the data	 
+for i in range(len(headers)):
+    ws.write(0, i, headers[i])
+
+#write data
+row = 1
+#for each row/json item
 for item in x:
-    f.writerow(
-        [item["_full_count"], item["fax_no"], item["gifted_ind"], item["mothertongue3_code"], item["fifth_vp_name"],
-         item["rank"], item["postal_code"], item["type_code"], item["second_vp_name"],
-         item["first_vp_name"], item["mainlevel_code"], item["email_address"], item["sap_ind"], item["cluster_code"],
-         item["telephone_no_2"], item["philosophy_culture_ethos"], item["mrt_desc"],
-         item["bus_desc"], item["third_vp_name"], item["telephone_no"], item["ip_ind"], item["special_sdp_offered"],
-         item["principal_name"], item["mothertongue1_code"], item["nature_code"],
-         item["visionstatement_desc"], item["fourth_vp_name"], item["missionstatement_desc"], item["autonomous_ind"],
-         item["session_code"], item["school_name"], item["dgp_code"], item["address"],
-         item["sixth_vp_name"], item["mothertongue2_code"], item["fax_no_2"], item["zone_code"], item["_id"],
-         item["url_address"]])
+    #for each column/data
+    for i in range(len(headers)):
+        header = headers[i]
+        ws.write(row, i, item[header])
+    row += 1
+
+#save excel workbook
+wb.save('generalSchoolInfo.xls')
