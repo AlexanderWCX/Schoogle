@@ -115,9 +115,10 @@ def getDistance(postalCode1, postalCode2):
     routeType = 'drive'
 
     # token
-    token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI0ODAsInVzZXJfaWQiOjI0ODAsImVtYWlsIjoiZGFueWkxOTk4QGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOi' \
-        'JodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTU1MjQxMjkyMCwiZXhwIjoxNTUyODQ0OTIwLCJuYmYiOjE1NTI0MTI5MjAsImp0a' \
-        'SI6IjZkMDRkYTZkZDhkZWE3NTcxM2Y4NDVlZDIwYTRhMzZiIn0.Di-ay6HpEavd9SYURG_azVQh96VJE_NgVWbT3s1QQ-A'
+    token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI0ODAsInVzZXJfaWQiOjI0ODAsImVtYWlsIjoiZGFueWkxOTk4QGdtY' \
+            'WlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2V' \
+            'zc2lvbiIsImlhdCI6MTU1Mjg4NDQwNywiZXhwIjoxNTUzMzE2NDA3LCJuYmYiOjE1NTI4ODQ0MDcsImp0aSI6IjBjMzg5YjljNWY2YjQ' \
+            '3MDc2OTc2MTlmNjczZjZhZjRhIn0.535fjjFGvsFYLLwrYIVvIKIUc96HPGI8as1ntylVt0U'
 
     # formulate the url
     url = 'https://developers.onemap.sg/privateapi/routingsvc/route?start=' + start + '&end=' + end + '&routeType=' + routeType + \
@@ -175,3 +176,10 @@ def findSchoolPostalCode(schoolName):
     postalCode = ws.cell(i, 6).value
 
     return postalCode
+
+
+
+list2 = sortBySavedDate('username 2')
+
+print(list2[0])
+print(list2[1])

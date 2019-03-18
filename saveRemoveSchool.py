@@ -45,6 +45,9 @@ def saveSchool(username, schoolName, savedDate):
 
             return
 
+        else:
+            row += 4
+
 
 # delete school
 def deleteSavedSchool(username, schoolName):
@@ -135,7 +138,7 @@ def deleteSavedSchool(username, schoolName):
             row += 4
 
 
-deleteSavedSchool('username 2', 'school 3')
+
 
 
 
