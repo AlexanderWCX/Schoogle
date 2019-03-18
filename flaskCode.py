@@ -1,13 +1,28 @@
-#remember to copy this file and the templates folder to desktop or flask will not be found
+# import relevant stuff
+# all modules must be placed in python34/lib/site-packages or it will not be found
+from flask import Flask, render_template, url_for
+from flaskForm import RegistrationForm, LoginForm
 
-from flask import Flask, render_template
-
+# create a flask object
 app = Flask(__name__)
 
-@app.route('/home')
-def printSomething():
-    return render_template('initialUI.html')
+# set the secret key for the app for security reasons
+app.config['SECRET_KEY'] = 'carol98hanee96alex96germ98'
 
-if __name__=='__main__':
+# route to sign up page
+@app.route('/signupform')
+# include the function below in the above route method using @
+def signUp():
+
+    # create the form object
+    form = RegistrationForm()
+
+    #render the html template and return it
+    return render_template('signupform.html', form=form)
+
+
+
+# run the app
+if __name__ == '__main__':
     app.run(debug=True)
 

@@ -3,14 +3,17 @@
   <head>
     <script src="jquery-3.3.1.min.js"></script>
     <title>Search Schoogle</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'UI.css') }}"/><!--//so we can use render_template in flask-->
   </head>
   <body>
-    <h1>Search By:</h1>
+    <img id="small_logo_icon" src="{{ url_for('static', filename = 'cap.svg') }}"/><!--//so we can use render_template in flask-->
+    <span id="schoogle">Schoogle</span>
+	
+    <p><div id="big_letter">Search By:</div></br>
+	<a href="searchbyC.html"><button class="button_big">Criteria</button></a></p>
 
-    <a href="searchbyC.html"><button>Criteria</button></a><br />
+    <p><a href="searchbyN.html"><button class="button_big">Name</button></a></p>
 
-    <a href="searchbyN.html"><button>Name</button></a><br />
-
-    <a href="searchbyM.html"><button>Map</button></a>
+    <p><a href="searchbyM.html"><button class="button_big">Map</button></a></p>
   </body>
 </html>

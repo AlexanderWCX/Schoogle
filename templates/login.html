@@ -3,15 +3,19 @@
   <head>
     <script src="jquery-3.3.1.min.js"></script>
     <title>Schoogle</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'UI.css') }}"/><!--//so we can use render_template in flask-->
   </head>
   <body>
-    <h1>Schoogle</h1>
-    <form>
+    <div id="top">Schoogle</div>
+	
+	<img id="big_logo_icon" src="{{ url_for('static', filename = 'cap.svg') }}"/><!--//so we can use render_template in flask-->
+    
+	<form>
       Email:<br />
-      <input type="text" name="email" /><br />
+      <input type="text" name="email" class="text1" /><br />
       Password:<br />
-      <input type="text" name="password" /><br />
-      <input type="submit" value="Log In!" />
+      <input type="text" name="password" class="text1" /><br />
+      <input type="submit" value="Log In!" class="button_small"/>
     </form>
   </body>
 </html>

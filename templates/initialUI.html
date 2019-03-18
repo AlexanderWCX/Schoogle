@@ -3,13 +3,16 @@
   <head>
     <script src="jquery-3.3.1.min.js"></script>
     <title>Schoogle</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'UI.css') }}"/><!--//so we can use render_template in flask-->
   </head>
   <body>
-    <h1>Schoogle</h1>
-    <p>Your one stop assistant in finding the school for you!</p>
-    <a href="login.html"><button>Log In</button></a>
-    <a href="signupform.html">Don't have an account? Create now!</a>
-    <p>Or just</p>
-    <a href="searchhome.html"><button>Start Searching!</button></a>
+	<div id="top">Schoogle</div>
+	<img id="big_logo_icon" src="{{ url_for('static', filename = 'cap.svg') }}"/><!--//so we can use render_template in flask-->
+	
+    Your one stop assistant in finding the school for you!<br/>
+    <a href="login.html"><button class="button_big">Log In</button></a>
+	<div id="small_letter">Don't have an account? <a href="signupform.html" id="under"> Create now!</a> </div>
+	<p>or just</br>
+    <a href="searchhome.html"><button class="button_big">Start Searching!</button></a></p>
   </body>
 </html>
