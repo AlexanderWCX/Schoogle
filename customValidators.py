@@ -38,5 +38,5 @@ class PasswordSecurity(object):
                 countNumbers += 1
 
         # if both counts are not exactly 1, raise error
-        if ((countCapitalLetters != 1) and (countNumbers != 1)):
+        if ((countCapitalLetters != 1) or (countNumbers != 1)):
             raise ValidationError(message)
