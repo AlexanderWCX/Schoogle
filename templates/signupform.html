@@ -8,30 +8,27 @@
   <body>
     <img id="small_logo_icon" src="{{ url_for('static', filename = 'cap.svg') }}"/><!--//so we can use render_template in flask-->
     <span id="schoogle">Schoogle</span>
-	
-    <form>
-		<p>
-		Email:<br />
-		<input type="text" name="email" class="text1" /><br /><!--//check if email is valid-->
+	 
+    <form method="post" action=""> 
+		{{ form.hidden_tag() }} 
 		
-		Password:<br />
-		<input type="text" name="password" class="text1" /><br />
-		<!--check if password has at least 8
-		characters, 1 capital letter and 1 number-->
-
-		Re-enter Password:<br />
-		<input type="text" name="passwordcheck"class="text1"  /><br />
-		<!--check if password reentered
-		is the same-->
-
-		Postal Code: (optional)<br />
-		<input type="text" name="postalcode" class="text1" /><br />
-		<!--if not filled in, auto fill as
-		"NIL"-->
+		<!--//please refer to code if unsure, it has to be this way-->
+		<!--//can design it using bootstrap/css, preferably bootstrap-->
+		{{ form.email.label }} <!--//from the form object in flaskCode.py, get the email object, from which we get its label-->
+		{{ form.email }} <!--//from the form object in flaskCode.py, get the email object--> 
 		
-		</p>	
+		{{ form.password.label }}
+		{{ form.password }}
 		
-		<input type="submit" value="Sign Up!" class="button_small"/>
+		{{ form.confirmPassword.label }}
+		{{ form.confirmPassword }}
+		
+		{{ form.postalCode.label }}
+		{{ form.postalCode }}
+		
+		{{ form.submit }}
+		
 	</form>
+	
   </body>
 </html>

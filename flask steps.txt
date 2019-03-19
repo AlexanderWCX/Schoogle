@@ -1,0 +1,42 @@
+for user registration and login
+
+1) define the form class
+self define a PasswordSecurity class to verify if password satisfies security requirements of 1 capital letter and 1 number
+very standard, just follow the formula
+
+
+2) create the html template
+include a form tag
+inside the tag, bring in the labels
+inside the tag, bring in the field object to handle the user input
+
+3) create a flask object
+app = Flask(__name__)
+
+4) route to a page
+app.route('/')
+
+5) define a function to include in the route method (using @)
+@app.route('/')
+def function():
+	//function contents
+
+6) make sure the route can accept get and post requests
+@app.route('/', methods = ['get', 'post']
+
+6) create a form object
+form = Form()
+
+7) render template on the form object and the html
+render_template('abc.html', form = form)
+
+8) return the rendered template to the route method
+return render_template('abc.html', form = form)
+
+9) accept the post request
+when the user submits a form, a post request is made
+
+10) validate the user input
+using validate_on_submit() 
+
+11) if validation successful, capture the user input data
