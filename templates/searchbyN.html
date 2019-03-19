@@ -29,9 +29,10 @@
 
     <h1>Search By Name</h1>
     <form>
-      <input type="text" name="searchword" /><br />
-
-      <input type="submit" value="Submit!" />
+      {{ form.keyword.label }} <!--//from the form object in flaskCode.py, get the keyword object, from which we get its label-->
+		  {{ form.keyword }} <!--//from the form object in flaskCode.py, get the keyword object--> 
+      
+      {{ form.submit }}
     </form>
   </body>
 </html>
