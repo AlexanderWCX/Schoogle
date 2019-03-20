@@ -51,7 +51,7 @@ class SearchByNForm(FlaskForm):
 	# forms use objects to handle user input 
 
     # keyword is a required field 
-    keyword = StringField('Search:', validators = [DataRequired()])
+    keyword = StringField('Search:', validators = [DataRequired()]) 
 
     # create a submit object
     submit = SubmitField('Submit!')

@@ -63,17 +63,12 @@ def search():
 def searchByC():
 	form = SearchByCForm()
 
-	# try to read in the user input data
-	try:
-		# read in the user input data only if they have passed validation checks
-		if form.validate_on_submit():
-			# the user input data will be found in the request object that flask automatically creates
-			sports = request.form.getlist['sports']
-			print(sports)
-	
-	# if the user has not submitted anything, do nothing for now
-	except:
-		None 
+	# read in the user input data only if they have passed validation checks
+	if form.validate_on_submit():
+		# the user input data will be found in the request object that flask automatically creates
+		sports = request.form.getlist['sports']
+		print(sports)
+
 	
 	# with the form object and html template, render the template and return it to route 	
 	return render_template('searchByC.html', form = form)
@@ -86,14 +81,14 @@ def searchByM():
 def searchByN():
 	# create the form object
 	form = SearchByNForm()
-	
+
 	# make sure the form validates upon user submission and capture the boolean
 	if form.validate_on_submit():
 		# the user input data will be found in the request object that flask automatically creates
-			keyword = request.form['keyword']
-			#flash(keyword)
-			print(keyword)
-	
+		keyword = request.form['keyword']
+		#flash(keyword)
+		print(keyword)
+
 	# with the form object and html template, render the template and return it to route 	
 	return render_template('searchByN.html', form = form)
 

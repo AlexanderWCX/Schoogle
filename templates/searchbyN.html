@@ -28,7 +28,8 @@
     </div>
 
     <h1>Search By Name</h1>
-    <form>
+    <form method='post', action=''>
+		{{ form.hidden_tag() }} <!--//deep concept that we do not need to understand, just add it in for now--> 
       {{ form.keyword.label }} <!--//from the form object in flaskCode.py, get the keyword object, from which we get its label-->
 		  {{ form.keyword }} <!--//from the form object in flaskCode.py, get the keyword object--> 
       
