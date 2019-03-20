@@ -1,7 +1,7 @@
 # import relevant stuff
 # all imported modules must be placed in python34/lib/site-packages or it will not be found
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, widgets, SelectMultipleField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, Optional
 from customValidators import PasswordSecurity
 
@@ -55,3 +55,19 @@ class SearchByNForm(FlaskForm):
 
     # create a submit object
     submit = SubmitField('Submit!')
+
+class MultiCheckboxField(SelectMultipleField):
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+
+
+class SearchByCForm(FlaskForm):
+    
+    list_of_sports = ['Air Rifle/Shooting', 'Artistics Gymnastics', 'Athletics']
+    #create a list of value/description tuples
+    sportschoices = [(x, x) for x in list_of_sports]
+    sports = MultiCheckboxField('Physical Sports', choices=sportschoices)
+
+    # create a submit object
+    submit = SubmitField('Submit!')
+    

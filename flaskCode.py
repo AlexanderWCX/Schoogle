@@ -1,7 +1,7 @@
 # import relevant stuff
 # all imported modules must be placed in python34/lib/site-packages or it will not be found
 from flask import Flask, render_template, url_for, request, redirect, flash
-from flaskForm import RegistrationForm, LoginForm, SearchByNForm
+from flaskForm import RegistrationForm, LoginForm, SearchByNForm, SearchByCForm
 from newUser import writeNewUserToDB
 
 # create a flask object
@@ -59,9 +59,24 @@ def signUp():
 def search():
 	return(render_template('searchhome.html'))
 
-@app.route('/searchbyc')
+@app.route('/searchbyc', methods=['get', 'post'])
 def searchByC():
-	return(render_template('searchbyC.html'))
+	form = SearchByCForm()
+
+	# try to read in the user input data
+	try:
+		# read in the user input data only if they have passed validation checks
+		if form.validate_on_submit():
+			# the user input data will be found in the request object that flask automatically creates
+			sports = request.form.getlist['sports']
+			print(sports)
+	
+	# if the user has not submitted anything, do nothing for now
+	except:
+		None 
+	
+	# with the form object and html template, render the template and return it to route 	
+	return render_template('searchByC.html', form = form)
 
 @app.route('/searchbym')
 def searchByM():
@@ -73,19 +88,11 @@ def searchByN():
 	form = SearchByNForm()
 	
 	# make sure the form validates upon user submission and capture the boolean
-	validated = form.validate_on_submit()
-	
-	# try to read in the user input data
-	try:
-		# read in the user input data only if they have passed validation checks
-		if validated == True:
-			# the user input data will be found in the request object that flask automatically creates
+	if form.validate_on_submit():
+		# the user input data will be found in the request object that flask automatically creates
 			keyword = request.form['keyword']
+			#flash(keyword)
 			print(keyword)
-	
-	# if the user has not submitted anything, do nothing for now
-	except:
-		None 
 	
 	# with the form object and html template, render the template and return it to route 	
 	return render_template('searchByN.html', form = form)
