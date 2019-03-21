@@ -15,17 +15,66 @@
 		<!--//please refer to code if unsure, it has to be this way-->
 		<!--//can design it using bootstrap/css, preferably bootstrap-->
 		{{ form.email.label }} <!--//from the form object in flaskCode.py, get the email object, from which we get its label-->
-		{{ form.email }} <!--//from the form object in flaskCode.py, get the email object--> 
+		
+		<span> Please enter an email address that has not been registered with us </span>
+		
+		<!--//print out errors in the email input if any-->
+		{% if form.email.errors %} <!--//if the length of the errors list is >0 aka there are errors-->
+				
+			{% for error in form.email.errors %} <!--//for each error--> 
+				<span> {{ error }} </span> 
+			{% endfor %} 
+			
+		{% endif %}	 
+
+		<!--//email object handles the user input-->
+		{{ form.email }}
+				
+			 
 		
 		{{ form.password.label }}
+		
+		<span> The password must be between 8 and 12 characters long, and must contain exactly 1 uppercase letter and 1 digit </span> 
+			
+		{% if form.password.errors %} 
+				
+			{% for error in form.password.errors %} 
+				<span> {{ error }} </span> 
+			{% endfor %} 
+			
+		{% endif %}
+				
 		{{ form.password }}
+				
+		
 		
 		{{ form.confirmPassword.label }}
+		
+		{% if form.confirmPassword.errors %} 
+			
+			{% for error in form.confirmPassword.errors %} 
+				<span> {{ error }} </span> 
+			{% endfor %} 
+			
+		{% endif %}
+				
 		{{ form.confirmPassword }}
+				
+			
 		
 		{{ form.postalCode.label }}
-		{{ form.postalCode }}
 		
+		{% if form.postalCode.errors %} 
+			
+			{% for error in form.postalCode.errors %} 
+				<span> {{ error }} </span> 
+			{% endfor %} 
+			
+		{% endif %}
+				
+		{{ form.postalCode }}
+				
+			
 		{{ form.submit }}
 		
 	</form>
