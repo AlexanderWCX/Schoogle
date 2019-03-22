@@ -1,28 +1,18 @@
 # import relevant stuff 
 import xlrd
 from xlutils.copy import copy
+from verifyEmailAndPassword import findEmailInDB 
 
 def writeNewUserToDB(email, password, postalCode):
+	# if email already exists in the database, not a new user 
+	# cannot create a new record for that user 
+	# return false  
+	if (findEmailInDB(email) > 0):
+		return False 
+		
 	# open the userInformation workbook
 	wb = xlrd.open_workbook('userInformation.xls')
-
-	# open the userInformation worksheet
-	ws = wb.sheet_by_name('userInformation')
 	
-	# read the number of records stored in this cell
-	numOfRecords = int(ws.cell(0, 1).value)
-	
-	# if the email already exists inside the database, return False 
-	# loop through each record to check
-	for i in range(numOfRecords):
-		# calculate the row
-		row = 2 + i*4 
-		
-		# if email matches the email stored in that record
-		if email == ws.cell(row, 0).value:
-			# return False
-			return False 
-
 	# make a copy of the userInformation workbook
 	newWB = copy(wb)
 
@@ -52,7 +42,7 @@ def writeNewUserToDB(email, password, postalCode):
 	# save the workbook
 	newWB.save('userInformation.xls')
 	
-	return True 
+	return True
 	
 
 

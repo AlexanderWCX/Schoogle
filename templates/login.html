@@ -10,12 +10,48 @@
 	
 	<img id="big_logo_icon" src="{{ url_for('static', filename = 'cap.svg') }}"/><!--//so we can use render_template in flask-->
     
-	<form>
-      Email:<br />
-      <input type="text" name="email" class="text1" /><br />
-      Password:<br />
-      <input type="text" name="password" class="text1" /><br />
-      <input type="submit" value="Log In!" class="button_small"/>
+	<form method="post" action="">
+		{{ form.hidden_tag() }}
+	  
+		<!--//print the email label on the screen--> 
+		{{ form.email.label }} 
+		
+		<span> Please make sure the correct email address is entered </span>
+		
+		<!--//if email input fails validation--> 
+		{% if form.email.errors %}
+			<!--//for each error-->  
+			{% for error in form.email.errors %}
+				<!--//display the error-->  
+				<span> error </span>
+			{% endfor %}
+		{% endif %}
+		
+		<!--//bring in the email object which will handle user input and validation--> 
+		{{ form.email }} 
+		
+	  
+		<!--//print the password label on the screen--> 
+		{{ form.password.label }}
+
+		<span> Please make sure the correct password is entered </span> 
+		
+		<!--//if password input fails validation--> 
+		{% if form.password.errors %}
+			<!--//for each error-->  
+			{% for error in form.password.errors %}
+				<!--//display the error-->  
+				<span> error </span>
+			{% endfor %}
+		{% endif %}
+		
+		<!--//bring in the email object which will handle user input and validation--> 
+		{{ form.password }} 
+		
+		
+		<!--//submit object handles user submission--> 
+		{{ form.submit }} 
+	  
     </form>
   </body>
 </html>

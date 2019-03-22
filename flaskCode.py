@@ -3,6 +3,7 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flaskForm import RegistrationForm, LoginForm, SearchByNForm, SearchByCForm
 from newUser import writeNewUserToDB
+from verifyEmailAndPassword import findEmailInDB, passwordMatchesThatPairedWithEmailInDB 
 
 # create a flask object
 app = Flask(__name__)
@@ -16,9 +17,35 @@ def home():
 	return(render_template('initialUI.html'))
 
 # route to login page
-@app.route('/login')
+@app.route('/login', methods = ['get', 'post'])
 def login():
-	return render_template('login.html')
+
+	# create the form object
+	form = LoginForm()
+
+	# validate user input
+	if form.validate_on_submit():
+		# all form data is stored in the request object flask auto creates
+		# read in the email
+		email = request.form['email']
+
+		# returns the row index the email is located in in the userInformation database, if found
+		emailRow = findEmailInDB(email)
+
+		# an actual row index got returned
+		if emailRow > 0:
+			# read in the password
+			password = request.form['password']
+
+			# make sure that the password matches that paired with that email in database
+			matches = passwordMatchesThatPairedWithEmailInDB(password, emailRow)
+			if matches == True:
+				# both email and password are correct, redirect to initial UI page
+				return redirect(url_for('home'))
+
+
+	# render template on html and form
+	return render_template('login.html', form = form)
 
 # route to sign up page
 # route has to accept get and post requests

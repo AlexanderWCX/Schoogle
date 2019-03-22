@@ -2,6 +2,7 @@
 import requests
 import json
 import xlrd
+from verifyEmailAndPassword import findEmailInDB 
 
 # sort the schools by distance from the user's house
 def sortByDistance(schoolList, userPostalCode):
@@ -54,46 +55,31 @@ def sortByDistance(schoolList, userPostalCode):
 
 
 # sort the schools by the dates on which they are saved
-def sortBySavedDate(username):
+def sortBySavedDate(email):
 
     # create schoolList and savedDatesList
     schoolList = []
     savedDatesList = []
 
-    # open the userInformation workbook
-    wb = xlrd.open_workbook('userInformation.xls')
+    # gives row index the email is stored in in the userInformation database 
+	row = findEmailInDB(email) 
+	
+	# if email does not exist in database 
+	if row == -1:
+		# no record, no sorting 
+		return False 
 
-    # open the userInformation worksheet
-    ws = wb.sheet_by_name('userInformation')
+	# retrieve number of schools stored in that record
+	numOfSchools = int(ws.cell(row + 1, 0).value)
 
-    # retrieve the number of records stored in the userInformation database
-    numOfRecords = int(ws.cell(0, 1).value)
+	# for each school in that record
+	for i in range(numOfSchools):
+		# append that school into schoolList
+		schoolList.append(ws.cell(row + 1, i + 1).value)
 
-    # records start at row index 2(refer to the userInformation database layout)
-    # initialize row
-    row = 2
+		# append the corresponding saved date into savedDatesList
+		savedDatesList.append(ws.cell(row + 2, i + 1).value)
 
-    # loop through each record in the userInformation database
-    for i in range(numOfRecords):
-
-        # check if the username matches that passed as an argument into this function
-        if username == ws.cell(row, 0).value:
-
-            # retrieve number of schools stored in that record
-            numOfSchools = int(ws.cell(row + 1, 0).value)
-
-            # for each school in that record
-            for i in range(numOfSchools):
-                # append that school into schoolList
-                schoolList.append(ws.cell(row + 1, i + 1).value)
-
-                # append the corresponding saved date into savedDatesList
-                savedDatesList.append(ws.cell(row + 2, i + 1).value)
-
-            break
-
-        else:
-            row += 4
 
     # create a list named sortedSchoolsSavedDates of schoolList and savedDatesList
     sortedSchoolsSavedDates = [schoolList, savedDatesList]
@@ -176,10 +162,3 @@ def findSchoolPostalCode(schoolName):
     postalCode = ws.cell(i, 6).value
 
     return postalCode
-
-
-
-list2 = sortBySavedDate('username 2')
-
-print(list2[0])
-print(list2[1])

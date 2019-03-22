@@ -29,21 +29,17 @@ class RegistrationForm(FlaskForm):
     # create a submit object
     submit = SubmitField('Sign Up!')
 
-# create a class named LoginForm
+
 class LoginForm(FlaskForm):
 
-	# forms use objects to handle user input 
-
-    # create an email object
-    # email is a required field and must be a valid address
     email = StringField('Email:', validators = [DataRequired(), Email()])
 
-    # create a password object
-    # password is a required field
+    # if password is not found in userInformation database, it is wrong
+    # no need for security checks
     password = PasswordField('Password:', validators = [DataRequired()])
 
-    # create a submit object
     submit = SubmitField('Log In!')
+
 
 # create a class named SearchByNForm
 class SearchByNForm(FlaskForm):

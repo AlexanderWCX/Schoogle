@@ -1,142 +1,133 @@
 # import relevant libraries
 import xlrd
 from xlutils.copy import copy
+from verifyEmailAndPassword import findEmailInDB  
 
 
 # save school
-def saveSchool(username, schoolName, savedDate):
+def saveSchool(email, schoolName, savedDate):
 
     # make a copy of the workbook and make changes to it
     wb = xlrd.open_workbook('userInformation.xls')
-    ws = wb.sheet_by_name('userInformation')
     newWB = copy(wb)
     newWS = newWB.get_sheet(0)
 
-    # retrieve the number of records stored in the userInformation database
-    numOfRecords = int(ws.cell(0, 1).value)
+	# gives the row index where that email is stored 
+    row = findEmailInDB(email) 
+	
+	# if row == -1, the email is not in the database 
+	if row == -1:
+		# cannot save that school
+		return False 
+	
+	# retrieve number of schools stored in that record
+	numOfSchools = int(ws.cell(row + 1, 0).value)
 
-    # records start at row index 2(refer to the userInformation database layout)
-    # initialize row
-    row = 2
+	# increment the number of schools saved
+	numOfSchools += 1
 
-    # loop through each record in the userInformation database
-    for i in range(numOfRecords):
+	# write the new number of schools saved to the record
+	newWS.write(row + 1, 0, numOfSchools)
 
-        # check if the username matches that passed as an argument into this function
-        if username == ws.cell(row, 0).value:
-            # retrieve number of schools stored in that record
-            numOfSchools = int(ws.cell(row + 1, 0).value)
+	# at the matching column index, write the new school and its saved date
+	newWS.write(row + 1, numOfSchools, schoolName)
+	newWS.write(row + 2, numOfSchools, savedDate)
 
-            # increment the number of schools saved
-            numOfSchools += 1
+	# move one cell to the right and write 'end' to it
+	newWS.write(row + 1, numOfSchools + 1, 'end')
+	newWS.write(row + 2, numOfSchools + 1, 'end')
 
-            # write the new number of schools saved to the record
-            newWS.write(row + 1, 0, numOfSchools)
+	newWB.save('userInformation.xls') 
+	
+	# school is successfully saved 
+	return True 
 
-            # at the matching column index, write the new school and its saved date
-            newWS.write(row + 1, numOfSchools, schoolName)
-            newWS.write(row + 2, numOfSchools, savedDate)
-
-            # move one cell to the right and write 'end' to it
-            newWS.write(row + 1, numOfSchools + 1, 'end')
-            newWS.write(row + 2, numOfSchools + 1, 'end')
-
-            newWB.save('userInformation.xls')
-
-            return
-
-        else:
-            row += 4
 
 
 # delete school
-def deleteSavedSchool(username, schoolName):
+def deleteSavedSchool(email, schoolName):
 
     # make a copy of the workbook and make changes to it
     wb = xlrd.open_workbook('userInformation.xls')
-    ws = wb.sheet_by_name('userInformation')
     newWB = copy(wb)
     newWS = newWB.get_sheet(0)
 
-    # retrieve the number of records stored in the userInformation database
-    numOfRecords = int(ws.cell(0, 1).value)
+    # gives the row index where the email is stored 
+	row = findEmailInDB(email) 
+	
+	# if email does not exist in the database 
+	if return == -1:
+		# cannot delete 
+		return False 
 
-    # records start at row index 2(refer to the userInformation database layout)
-    # initialize row
-    row = 2
+	# retrieve number of schools stored in that record
+	numOfSchools = int(ws.cell(row + 1, 0).value) 
 
-    # loop through each record in the userInformation database
-    for i in range(numOfRecords):
+	# decrement the number of schools saved
+	numOfSchools -= 1
 
-        # check if the username matches that passed as an argument into this function
-        if username == ws.cell(row, 0).value:
+	# write the new number of schools saved to the record
+	newWS.write(row + 1, 0, numOfSchools)
 
-            # retrieve number of schools stored in that record
-            numOfSchools = int(ws.cell(row + 1, 0).value)
+	# initialize col
+	col = 1
 
-            # decrement the number of schools saved
-            numOfSchools -= 1
+	# initialize sn
+	sn = ws.cell(row + 1, col).value
 
-            # write the new number of schools saved to the record
-            newWS.write(row + 1, 0, numOfSchools)
+	# while we have not reached 'end'
+	while (sn != 'end'):
 
-            # initialize col
-            col = 1
+		# compare sn with schoolName
+		if sn == schoolName:
+			break
 
-            # initialize sn
-            sn = ws.cell(row + 1, col).value
-
-            # while we have not reached 'end'
-            while (sn != 'end'):
-
-                # compare sn with schoolName
-                if sn == schoolName:
-                    break
-
-                else:
-                    col += 1
-                    sn = ws.cell(row + 1, col).value
+		else:
+			col += 1
+			sn = ws.cell(row + 1, col).value
 
 
-            # if sn == 'end'
-            if (sn == 'end'):
-                print('The school is not saved!')
-                return
+	# if sn == 'end'
+	if (sn == 'end'):
+		print('The school is not saved!')
+		return
 
-            # increment col
-            col += 1
+	# increment col
+	col += 1 
 
-            # get the next sn
-            sn = ws.cell(row + 1, col).value
-            sd = ws.cell(row + 2, col).value
+	# get the next sn
+	sn = ws.cell(row + 1, col).value
+	sd = ws.cell(row + 2, col).value
 
-            # loop through the remaining cells till 'end' and shift them left by one column each
-            while (sn != 'end'):
+	# loop through the remaining cells till 'end' and shift them left by one column each
+	while (sn != 'end'):
 
-                # shift the school name left by one cell
-                newWS.write(row + 1, col - 1, sn)
+		# shift the school name left by one cell
+		newWS.write(row + 1, col - 1, sn)
 
-                # shift the saved date left by one cell
-                newWS.write(row + 2, col - 1, sd)
+		# shift the saved date left by one cell
+		newWS.write(row + 2, col - 1, sd)
 
-                # move on to the next school
-                col += 1
-                sn = ws.cell(row + 1, col).value
-                sd = ws.cell(row + 2, col).value
+		# move on to the next school
+		col += 1
+		sn = ws.cell(row + 1, col).value
+		sd = ws.cell(row + 2, col).value
 
-            # shift 'end' left by one cell
-            newWS.write(row + 1, col - 1, 'end')
-            newWS.write(row + 2, col - 1, 'end')
-            newWS.write(row + 1, col, '')
-            newWS.write(row + 2, col, '')
+	# shift 'end' left by one cell
+	newWS.write(row + 1, col - 1, 'end')
+	newWS.write(row + 2, col - 1, 'end')
+	newWS.write(row + 1, col, '')
+	newWS.write(row + 2, col, '')
 
-            newWB.save('userInformation.xls')
+	newWB.save('userInformation.xls') 
+	
+	# removal successful 
+	return True 
+	
 
-            return
+        
 
-        else:
-            row += 4
-
+        
 
 
 
