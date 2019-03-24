@@ -4,12 +4,14 @@ from flask import Flask, render_template, url_for, request, redirect, flash
 from flaskForm import RegistrationForm, LoginForm, SearchByNForm, SearchByCForm
 from newUser import writeNewUserToDB
 from verifyEmailAndPassword import findEmailInDB, passwordMatchesThatPairedWithEmailInDB 
+from searchByN import searchByN
 
 # create a flask object
 app = Flask(__name__)
 
 # set the secret key for the app for security reasons
 app.config['SECRET_KEY'] = 'carol98hanee96alex96germ98'
+app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
 
 @app.route('/')
 @app.route('/home')
@@ -105,23 +107,38 @@ def searchByM():
 	return(render_template('searchbyM.html'))
 
 @app.route('/searchbyn', methods=['get', 'post'])
-def searchByN():
+def searchByNpage():
 	# create the form object
 	form = SearchByNForm()
 
 	# make sure the form validates upon user submission and capture the boolean
 	if form.validate_on_submit():
+		
 		# the user input data will be found in the request object that flask automatically creates
 		keyword = request.form['keyword']
-		#flash(keyword)
-		print(keyword)
-
+		resultslist = searchByN(keyword)
+		#debug# print(resultslist)
+		
+		return redirect(url_for('results'))
+		
 	# with the form object and html template, render the template and return it to route 	
 	return render_template('searchByN.html', form = form)
 
 @app.route('/savedlist')
 def savedlist():
 	return(render_template('usersavedlist.html'))
+
+@app.route('/results')
+def results():
+	return(render_template('results.html'))
+	
+
+
+
+
+
+
+
 
 
 # run the app
