@@ -115,15 +115,17 @@ def searchByCpage():
 		others = form.others.data
 		#print(others)
 		
+		#prepare lists to feed into searchByC function
 		ccaList = sports + arts + uniformed + societies + others
+		subjectList = form.subjects.data
+		typeList = form.types.data
+		genderList = form.gender.data
+		focusList = form.focus.data
 	
+		resultslist = searchByC(ccaList, subjectList, typeList, genderList, focusList)
 
-		resultslist = searchByC()
+		return render_template('results.html', resultslist=resultslist)
 
-
-
-
-	
 	# with the form object and html template, render the template and return it to route 	
 	return render_template('searchByC.html', form = form)
 

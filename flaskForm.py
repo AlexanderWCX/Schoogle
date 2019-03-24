@@ -84,7 +84,25 @@ class SearchByCForm(FlaskForm):
     otherschoices = [(x, x) for x in list_of_others]
     others = MultiCheckboxField('Others', choices=otherschoices)
 
+    list_of_subjects = ["Art 'O' Level", 'Combined Humanities (S,G)', 'Combined Humanities (S,H)', 'Combined Humanities (S,L)', 'Computer Applications', 'Drama', 'Elements of Business Skills', 'Exercise and Sports Science', 'Food & Nutrition', 'Geography', 'History', 'Mobile Robotics', "Music 'O' Level", "Physical Education", 'Principle of Accounts', 'Science (Chem, Bio)', 'Science (Phy, Bio)', 'Science (Phy, Chem)', 'Chemistry', 'Physics', 'Biology', 'Chinese', 'Malay', 'Tamil']
+    #create a list of value/description tuples
+    subjectschoices = [(x, x) for x in list_of_subjects]
+    subjects = MultiCheckboxField('Subjects', choices=subjectschoices)
 
+    list_of_types = ['Government School', 'Government-Aided School', 'Independent School', 'Specialised School', 'Specialised Independent School']
+    #create a list of value/description tuples
+    typeschoices = [(x, x) for x in list_of_types]
+    types = MultiCheckboxField('Type of School', choices=typeschoices)
+
+    list_of_gender = ["Boys' School", "Girls' School", 'Co-ed School']
+    #create a list of value/description tuples
+    genderchoices = [(x, x) for x in list_of_types]
+    gender = MultiCheckboxField('Gender of Students', choices=genderchoices)
+
+    list_of_focus = ['STEM', 'Languages & Humanities', 'Business & Entrepreneurship', 'Aesthetics', 'Humanities', 'Languages']
+    #create a list of value/description tuples
+    focuschoices = [(x, x) for x in list_of_focus]
+    focus = MultiCheckboxField('Distinctive Programmes', choices=focuschoices)
 
     # create a submit object
     submit = SubmitField('Submit!')

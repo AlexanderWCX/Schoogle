@@ -10,19 +10,29 @@ wsSchoolInfo = wbSchoolInfo.sheet_by_name('generalSchoolInfo')
 wbFocus = xlrd.open_workbook('schoolDistinctiveProgs.xls')
 wsFocus = wbFocus.sheet_by_name('schoolDistinctiveProgs')
 
-ccaList = ['Taekwondo']
-subjectList = ['Art', 'Science']
-typeList = ['Government School']
-focusList = ['Languages & Humanities']
+## Ignore below. They are just for code testing.
+#ccaList = ['Taekwondo']
+#subjectList = []
+#typeList = []
+#genderList = []
+#focusList = []
 
 
-def searchByC(ccaList, subjectList, typeList, focusList):
+def searchByC(ccaList, subjectList, typeList, genderList, focusList):
 
     ccaResultsList = []
     subjectResultsList = []
     typeResultsList = []
+    genderResultsList = []
     focusResultsList = []
     finalResultsList = []
+
+    filledList = []
+    allList = [ccaResultsList, subjectResultsList, typeResultsList, genderResultsList, focusResultsList]
+    
+    for n in range(0,len(typeList)):
+        if typeList[n] == "Government-Aided School":
+            typeList[n] = "Government-Aided Sch"
     
     
 #CCA matching
@@ -50,6 +60,14 @@ def searchByC(ccaList, subjectList, typeList, focusList):
             if typeList[n].lower() == schoolType.lower():
                 typeResultsList.append(schoolName)
 
+#Gender matching
+    for n in range(0,len(genderList)):
+        for i in range(1, 100):
+            schoolType = wsSchoolInfo.cell(i,24).value
+            schoolName = wsSchoolInfo.cell(i,30).value
+            if genderList[n].lower() == schoolType.lower():
+                genderResultsList.append(schoolName)
+
 #Focus area matching
     for n in range(0,len(focusList)):
         for i in range(1, 99):
@@ -58,20 +76,34 @@ def searchByC(ccaList, subjectList, typeList, focusList):
             if focusList[n].lower() == focusArea.lower():
                 focusResultsList.append(schoolName)            
 
+#Get common schools from all lists
+    for n in range (0,len(allList)):
+        testList = allList[n]
+        length = len(testList)
+        if length != 0:
+            filledList.append(testList)
 
-    for i in range(0,len(ccaResultsList)):
-        for j in range(0,len(subjectResultsList)):
-            for k in range(0,len(typeResultsList)):
-                for l in range(0,len(focusResultsList)):
-                    if ccaResultsList[i] == subjectResultsList[j] == typeResultsList[k] == focusResultsList[l]:
-                        finalResultsList.append(ccaResultsList[i])
+    for m in range (0,len(filledList)):
+        currentList = filledList[m]
+        if m == 0: 
+            for k in range (0,len(currentList)):
+                finalResultsList.append(currentList[k])
 
-    
+        if m != 0:
+            for x in range (0,len(finalResultsList)):
+                for y in range (0,len(currentList)):
+                    if finalResultsList[x] == currentList[y]:
+                        break
+                    else:
+                        if y == len(currentList):
+                            del finalResultsList[x]
+                
+        
     finalResultsList = list(dict.fromkeys(finalResultsList))
     #print(finalResultsList)
     return finalResultsList
 
 
-
-searchByC(ccaList,subjectList,typeList,focusList)
+##Ignore below. They are just for code testing.
+#searchByC(ccaList,subjectList,typeList,genderList,focusList)
 

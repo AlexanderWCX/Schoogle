@@ -28,12 +28,36 @@
     </div>
 
     <h1>Search By Criteria</h1>
-
-    <form method="post" action=""> 
+    <form method='post', action=''>
+      {{ form.hidden_tag() }} <!--//deep concept that we do not need to understand, just add it in for now--> 
+      <p>CCAs</p>
       {{ form.sports.label }}
-		  {{ form.sports }}
+      {{ form.sports }}
+      
+      {{ form.arts.label }}
+      {{ form.arts }}
+      
+      {{ form.uniformed.label }}
+      {{ form.uniformed }}
+      
+      {{ form.societies.label }}
+      {{ form.societies }}
+      
+      {{ form.subjects.label }}
+      {{ form.subjects }}
+      
+      {{ form.types.label }}
+      {{ form.types }}
+      
+      {{ form.gender.label }}
+      {{ form.gender }}
+      
+      {{ form.focus.label }}
+		  {{ form.focus }}
 		
-		  {{ form.submit }}
+      {{ form.submit }}
+      
+      <S
     </form>
   </body>
 </html>
