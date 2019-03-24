@@ -10,10 +10,10 @@
     <span id="schoogle">Schoogle</span>
 	
     <p><div id="big_letter">Search By:</div></br>
-	<a href="searchbyC.html"><button class="button_big">Criteria</button></a></p>
+	<a href="{{ url_for('searchByCpage') }}"><button class="button_big">Criteria</button></a></p>
 
-    <p><a href="searchbyN.html"><button class="button_big">Name</button></a></p>
+    <p><a href="{{ url_for('searchByNpage') }}"><button class="button_big">Name</button></a></p>
 
-    <p><a href="searchbyM.html"><button class="button_big">Map</button></a></p>
+    <p><a href="{{ url_for('searchByM') }}"><button class="button_big">Map</button></a></p>
   </body>
 </html>

@@ -10,9 +10,9 @@
 	<img id="big_logo_icon" src="{{ url_for('static', filename = 'cap.svg') }}"/><!--//so we can use render_template in flask-->
 	
     Your one stop assistant in finding the school for you!<br/>
-    <a href="login.html"><button class="button_big">Log In</button></a>
-	<div id="small_letter">Don't have an account? <a href="signupform.html" id="under"> Create now!</a> </div>
+    <a href="{{ url_for('login') }}"><button class="button_big">Log In</button></a>
+	<div id="small_letter">Don't have an account? <a href="{{ url_for('signUp') }}" id="under"> Create now!</a> </div>
 	<p>or just</br>
-    <a href="searchhome.html"><button class="button_big">Start Searching!</button></a></p>
+    <a href="{{ url_for('search') }}"><button class="button_big">Start Searching!</button></a></p>
   </body>
 </html>
