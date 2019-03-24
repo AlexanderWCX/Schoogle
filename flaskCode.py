@@ -5,6 +5,7 @@ from flaskForm import RegistrationForm, LoginForm, SearchByNForm, SearchByCForm
 from newUser import writeNewUserToDB
 from verifyEmailAndPassword import findEmailInDB, passwordMatchesThatPairedWithEmailInDB 
 from searchByN import searchByN
+from searchByC import searchByC
 
 # create a flask object
 app = Flask(__name__)
@@ -89,14 +90,38 @@ def search():
 	return(render_template('searchhome.html'))
 
 @app.route('/searchbyc', methods=['get', 'post'])
-def searchByC():
+def searchByCpage():
 	form = SearchByCForm()
 
 	# read in the user input data only if they have passed validation checks
 	if form.validate_on_submit():
-		# the user input data will be found in the request object that flask automatically creates
-		sports = request.form.getlist['sports']
-		print(sports)
+		# get list of sports CCAs that was selected
+		sports = form.sports.data
+		#print(sports)
+
+		# get list of visual & performing arts CCAs that was selected
+		arts = form.arts.data
+		#print(arts)
+
+		# get list of uniformed group CCAs that was selected
+		uniformed = form.uniformed.data
+		#print(uniformed)
+
+		# get list of clubs & societies CCAs that was selected
+		societies = form.societies.data
+		#print(societies)
+
+		# get list of others CCAs that was selected
+		others = form.others.data
+		#print(others)
+		
+		ccaList = sports + arts + uniformed + societies + others
+	
+
+		resultslist = searchByC()
+
+
+
 
 	
 	# with the form object and html template, render the template and return it to route 	
@@ -117,9 +142,9 @@ def searchByNpage():
 		# the user input data will be found in the request object that flask automatically creates
 		keyword = request.form['keyword']
 		resultslist = searchByN(keyword)
-		#debug# print(resultslist)
+		#print(resultslist)
 		
-		return redirect(url_for('results'))
+		return render_template('results.html', resultslist=resultslist)
 		
 	# with the form object and html template, render the template and return it to route 	
 	return render_template('searchByN.html', form = form)

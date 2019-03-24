@@ -59,10 +59,32 @@ class MultiCheckboxField(SelectMultipleField):
 
 class SearchByCForm(FlaskForm):
     
-    list_of_sports = ['Air Rifle/Shooting', 'Artistics Gymnastics', 'Athletics']
+    list_of_sports = ['Adventure Club', 'Air Rifle/Shooting', 'Artistics Gymnastics', 'Athletics', 'Badminton', 'BasketBall', 'Cricket', 'Cross Country', 'Fencing', 'Floorball', 'Football', 'Frisbee', 'Golf', 'Hockey', 'Judo', 'Karate', 'Rhythmic Gymnastics', 'Rugby', 'Sailing', 'Sepak Takraw', 'Softball', 'Squash', 'Swimming', 'Table Tennis', 'Taekwondo', 'Tchoukball', 'Ten-pin Bowling', 'Tennis', 'Track & Field', 'Trampoline', 'Volleyball', 'Wushu']
     #create a list of value/description tuples
     sportschoices = [(x, x) for x in list_of_sports]
     sports = MultiCheckboxField('Physical Sports', choices=sportschoices)
+
+    list_of_societies = ['Aero-Modelling', 'Astronomy Club', 'Audio & Video/ PA Club', 'Audio Video and Information Technology Club', 'Chess Club', 'Chinese Society', 'Computer Club', 'Green Club', 'Infocom Club', 'IT Club', 'Japanese Club', 'Photographic Society', 'Robotics Club', 'Scrabble Club', 'Service Learning Club']
+    #create a list of value/description tuples
+    societieschoices = [(x, x) for x in list_of_societies]
+    societies = MultiCheckboxField('Clubs & Societies', choices=societieschoices)
+
+    list_of_uniformed = ["Boys' Brigade", 'Girl Guides', "Girls' Brigade", 'National Civil Defence Cadet Corps', 'NCC (Land)', 'NCC(Sea', 'NCC(Air)', 'NPCC', 'NPCC(Sea)', 'Scouts', "St. John Brigade", "Singapore Red Cross Society"]
+    #create a list of value/description tuples
+    uniformedchoices = [(x, x) for x in list_of_uniformed]
+    uniformed = MultiCheckboxField('Uniformed Groups', choices=uniformedchoices)
+
+    list_of_arts = ['Art & Craft Club', 'Arts and Innovation Club', 'Arts Society', 'Band - Concert', 'Band - Display/Marching', 'Band - Military', 'Band - Pipe', 'Band - Symphonic', 'Choir', 'Dance - Ballet', 'Dance - Chinese', 'Dance - Indian', 'Dance - International', 'Dance - Malay', 'Dance - Modern', 'Drama - Chinese', 'Drama - English', 'Drama - Tamil', 'Ensemble - Guitar', 'Ensemble - Guzheng', 'Ensemble - Harmonica', 'Ensemble - Percussion', 'Ensemble - String', 'Lion Dance Troupe', 'Orchestra - Chinese', 'Orchestra - Indian']
+    #create a list of value/description tuples
+    artschoices = [(x, x) for x in list_of_arts]
+    arts = MultiCheckboxField('Visual & Performing Arts', choices=artschoices)
+
+    list_of_others = ['Prefectorial Board', "Students' Council", 'House Appointment']
+    #create a list of value/description tuples
+    otherschoices = [(x, x) for x in list_of_others]
+    others = MultiCheckboxField('Others', choices=otherschoices)
+
+
 
     # create a submit object
     submit = SubmitField('Submit!')
