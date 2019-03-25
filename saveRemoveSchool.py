@@ -9,6 +9,9 @@ def saveSchool(email, schoolName, savedDate):
 
     # make a copy of the workbook and make changes to it
     wb = xlrd.open_workbook('userInformation.xls')
+	# open the userInformation worksheet
+	ws = wb.sheet_by_name('userInformation')
+	
     newWB = copy(wb)
     newWS = newWB.get_sheet(0)
 
