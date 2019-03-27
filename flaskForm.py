@@ -112,15 +112,14 @@ class SearchByCForm(FlaskForm):
     submit = SubmitField('Submit!')
 
 
-#class SaveSchoolsForm(FlaskForm):
+class SaveSchoolsForm(FlaskForm):
 
-    #resultslist = globalvariables.school_list
+    resultslist = globalvariables.school_list
     #print('im reading at flaskform')
     #print(resultslist)
-    #schoolchoices = [(x, x) for x in resultslist]
-    #schools = MultiCheckboxField('Results', choices=schoolchoices)
+    schoolchoices = [(x, x) for x in resultslist]
+    schools = MultiCheckboxField('Results', choices=schoolchoices)
 
-     # create a submit object
-    #submit = SubmitField('Submit!')
+    
 
     
