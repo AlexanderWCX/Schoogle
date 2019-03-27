@@ -1,0 +1,7 @@
+flaskForm
+newUser
+customValidators
+newUser
+searchByC
+searchByN
+verifyEmailAndPassword
