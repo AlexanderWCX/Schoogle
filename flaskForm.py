@@ -5,6 +5,8 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, widge
 from wtforms.validators import DataRequired, Length, Email, EqualTo, Optional
 from customValidators import PasswordSecurity
 
+global_school_list = []
+
 # create a class named RegistrationForm
 class RegistrationForm(FlaskForm):
 
@@ -106,4 +108,16 @@ class SearchByCForm(FlaskForm):
 
     # create a submit object
     submit = SubmitField('Submit!')
+
+
+class SaveSchoolsForm(FlaskForm):
+
+    
+    def __init__(self, list_of_schools):
+        global global_school_list
+        global_school_list = list_of_schools
+    
+    schoolchoices = [(x, x) for x in global_school_list]
+    schools = MultiCheckboxField('Results', choices=schoolchoices)
+
     

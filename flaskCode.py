@@ -1,11 +1,13 @@
 # import relevant stuff
 # all imported modules must be placed in python34/lib/site-packages or it will not be found
 from flask import Flask, render_template, url_for, request, redirect, flash
-from flaskForm import RegistrationForm, LoginForm, SearchByNForm, SearchByCForm
+from flaskForm import RegistrationForm, LoginForm, SearchByNForm, SearchByCForm, SaveSchoolsForm
 from newUser import writeNewUserToDB
 from verifyEmailAndPassword import findEmailInDB, passwordMatchesThatPairedWithEmailInDB 
 from searchByN import searchByN
 from searchByC import searchByC
+from saveRemoveSchool import saveSchool
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, widgets, SelectMultipleField
 
 # create a flask object
 app = Flask(__name__)
@@ -13,6 +15,11 @@ app = Flask(__name__)
 # set the secret key for the app for security reasons
 app.config['SECRET_KEY'] = 'carol98hanee96alex96germ98'
 app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
+
+#create global variables that 
+log_in = False 
+global_email = "none"
+global_list_of_schools = []
 
 @app.route('/')
 @app.route('/home')
@@ -43,6 +50,10 @@ def login():
 			# make sure that the password matches that paired with that email in database
 			matches = passwordMatchesThatPairedWithEmailInDB(password, emailRow)
 			if matches == True:
+				global log_in 
+				log_in = True
+				global global_email 
+				global_email = email
 				# both email and password are correct, redirect to initial UI page
 				return redirect(url_for('home'))
 
@@ -141,10 +152,14 @@ def searchByNpage():
 	# make sure the form validates upon user submission and capture the boolean
 	if form.validate_on_submit():
 		
+		global global_list_of_schools
+
 		# the user input data will be found in the request object that flask automatically creates
 		keyword = request.form['keyword']
 		resultslist = searchByN(keyword)
-		#print(resultslist)
+		global_list_of_schools = resultslist
+
+		print(resultslist)
 		
 		return render_template('results.html', resultslist=resultslist)
 		
@@ -157,7 +172,26 @@ def savedlist():
 
 @app.route('/results')
 def results():
-	return(render_template('results.html'))
+
+	form = SaveSchoolsForm(global_list_of_schools)
+
+	if form.validate_on_submit():
+		
+		#get list of schools chosen to be saved
+		saveList = form.schools.data
+		
+		#checking if the user has logged in
+		if global_email == "none":
+			flash("you have not logged in")
+		
+		#iterate through the list of schools and save them all
+		else: 
+			for school in saveList:
+				saveSchool(global_email, school, 100)
+
+	return render_template('results.html', form = form)
+	
+
 	
 
 

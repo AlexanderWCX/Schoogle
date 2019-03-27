@@ -57,6 +57,9 @@ def sortByDistance(schoolList, userPostalCode):
 # sort the schools by the dates on which they are saved
 def sortBySavedDate(email):
 
+	# open the userInformation worksheet
+	ws = wb.sheet_by_name('userInformation')
+
     # create schoolList and savedDatesList
     schoolList = []
     savedDatesList = []

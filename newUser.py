@@ -18,6 +18,12 @@ def writeNewUserToDB(email, password, postalCode):
 
 	# use the copy to open the worksheet
 	newWS = newWB.get_sheet(0)
+	
+	# open the userInformation worksheet
+	ws = wb.sheet_by_name('userInformation')
+	
+	# read the number of records stored from this cell
+	numOfRecords = int(ws.cell(0, 1).value)
 
 	# calculate the index of the row to write to 
 	row = 2 + (numOfRecords*4)

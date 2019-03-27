@@ -1,74 +1,70 @@
 # import relevant libraries
 import xlrd
 from xlutils.copy import copy
-from verifyEmailAndPassword import findEmailInDB  
-
+from verifyEmailAndPassword import findEmailInDB 
 
 # save school
-def saveSchool(email, schoolName, savedDate):
-
-    # make a copy of the workbook and make changes to it
-    wb = xlrd.open_workbook('userInformation.xls')
-    newWB = copy(wb)
-    newWS = newWB.get_sheet(0)
-
+def saveSchool(email, schoolName, savedDate): 
+	wb = xlrd.open_workbook('userInformation.xls')
+	ws = wb.sheet_by_name('userInformation')
+	newWB = copy(wb)
+	newWS = newWB.get_sheet(0)
+	
 	# gives the row index where that email is stored 
-    row = findEmailInDB(email) 
+	row = findEmailInDB(email)  
 	
 	# if row == -1, the email is not in the database 
 	if row == -1:
 		# cannot save that school
 		return False 
-	
+		
 	# retrieve number of schools stored in that record
-	numOfSchools = int(ws.cell(row + 1, 0).value)
-
+	numOfSchools = int(ws.cell(row + 1, 0).value) 
+	
 	# increment the number of schools saved
 	numOfSchools += 1
 
 	# write the new number of schools saved to the record
-	newWS.write(row + 1, 0, numOfSchools)
-
+	newWS.write(row + 1, 0, numOfSchools) 
+	
 	# at the matching column index, write the new school and its saved date
 	newWS.write(row + 1, numOfSchools, schoolName)
 	newWS.write(row + 2, numOfSchools, savedDate)
 
 	# move one cell to the right and write 'end' to it
 	newWS.write(row + 1, numOfSchools + 1, 'end')
-	newWS.write(row + 2, numOfSchools + 1, 'end')
-
+	newWS.write(row + 2, numOfSchools + 1, 'end') 
+	
 	newWB.save('userInformation.xls') 
 	
 	# school is successfully saved 
 	return True 
-
-
-
-# delete school
+	
+# delete school 
 def deleteSavedSchool(email, schoolName):
-
-    # make a copy of the workbook and make changes to it
-    wb = xlrd.open_workbook('userInformation.xls')
-    newWB = copy(wb)
-    newWS = newWB.get_sheet(0)
-
-    # gives the row index where the email is stored 
-	row = findEmailInDB(email) 
+	# make a copy of the workbook and make changes to it
+	wb = xlrd.open_workbook('userInformation.xls') 
+	ws = wb.sheet_by_name('userInformation') 
+	newWB = copy(wb)
+	newWS = newWB.get_sheet(0)
+	
+	# gives the row index where the email is stored 
+	row = findEmailInDB(email)
 	
 	# if email does not exist in the database 
-	if return == -1:
+	if row == -1:
 		# cannot delete 
-		return False 
-
+		return False
+		
 	# retrieve number of schools stored in that record
-	numOfSchools = int(ws.cell(row + 1, 0).value) 
-
+	numOfSchools = int(ws.cell(row + 1, 0).value)
+	
 	# decrement the number of schools saved
 	numOfSchools -= 1
 
 	# write the new number of schools saved to the record
 	newWS.write(row + 1, 0, numOfSchools)
-
+	
 	# initialize col
 	col = 1
 
@@ -85,16 +81,15 @@ def deleteSavedSchool(email, schoolName):
 		else:
 			col += 1
 			sn = ws.cell(row + 1, col).value
-
-
+			
 	# if sn == 'end'
 	if (sn == 'end'):
 		print('The school is not saved!')
-		return
+		return False
 
 	# increment col
-	col += 1 
-
+	col += 1
+	
 	# get the next sn
 	sn = ws.cell(row + 1, col).value
 	sd = ws.cell(row + 2, col).value
@@ -122,18 +117,4 @@ def deleteSavedSchool(email, schoolName):
 	newWB.save('userInformation.xls') 
 	
 	# removal successful 
-	return True 
-	
-
-        
-
-        
-
-
-
-
-
-
-
-
-
+	return True
