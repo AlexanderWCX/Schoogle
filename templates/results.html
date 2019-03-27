@@ -8,14 +8,16 @@
   <body>
 
     <h1>My Results</h1>
+    {{ resultslist }}
     <form method='post', action=''>
       {{ form.hidden_tag() }} <!--//deep concept that we do not need to understand, just add it in for now--> 
       
       {{ form.schools.label }}
       {{ form.schools }}
 
-      {{ form.submit }}
+      
       
     </form>
+    
   </body>
 </html>

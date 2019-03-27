@@ -1,13 +1,17 @@
 # import relevant stuff
 # all imported modules must be placed in python34/lib/site-packages or it will not be found
 from flask import Flask, render_template, url_for, request, redirect, flash
-from flaskForm import RegistrationForm, LoginForm, SearchByNForm, SearchByCForm, SaveSchoolsForm
+from flaskForm import RegistrationForm, LoginForm, SearchByNForm, SearchByCForm
+from wtforms import SelectMultipleField
+from flask_wtf import FlaskForm
 from newUser import writeNewUserToDB
 from verifyEmailAndPassword import findEmailInDB, passwordMatchesThatPairedWithEmailInDB 
 from searchByN import searchByN
 from searchByC import searchByC
 from saveRemoveSchool import saveSchool
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, widgets, SelectMultipleField
+import globalvariables
+import globalupdater
 
 # create a flask object
 app = Flask(__name__)
@@ -50,10 +54,8 @@ def login():
 			# make sure that the password matches that paired with that email in database
 			matches = passwordMatchesThatPairedWithEmailInDB(password, emailRow)
 			if matches == True:
-				global log_in 
-				log_in = True
-				global global_email 
-				global_email = email
+				globalupdater.update_log_in(True)
+				globalupdater.update_global_email(email)
 				# both email and password are correct, redirect to initial UI page
 				return redirect(url_for('home'))
 
@@ -134,6 +136,7 @@ def searchByCpage():
 		focusList = form.focus.data
 	
 		resultslist = searchByC(ccaList, subjectList, typeList, genderList, focusList)
+		globalupdater.update_school_list(resultslist)
 
 		return render_template('results.html', resultslist=resultslist)
 
@@ -157,11 +160,13 @@ def searchByNpage():
 		# the user input data will be found in the request object that flask automatically creates
 		keyword = request.form['keyword']
 		resultslist = searchByN(keyword)
-		global_list_of_schools = resultslist
+		globalupdater.update_school_list(resultslist)
 
+		#print(resultslist)
+		print('setting global variable successful')
 		print(resultslist)
 		
-		return render_template('results.html', resultslist=resultslist)
+		return redirect(url_for('results'))
 		
 	# with the form object and html template, render the template and return it to route 	
 	return render_template('searchByN.html', form = form)
@@ -173,24 +178,47 @@ def savedlist():
 @app.route('/results')
 def results():
 
-	form = SaveSchoolsForm(global_list_of_schools)
+	form = SaveSchoolsForm()
+	print('im at form=SaveSchoolsForm at flaskCode')
 
-	if form.validate_on_submit():
+
+	if True:
 		
 		#get list of schools chosen to be saved
-		saveList = form.schools.data
-		
+		schoolResultsList = form.schools.data
+		print('gotten schoolResultsList')
+		print(schoolResultsList)
+
 		#checking if the user has logged in
-		if global_email == "none":
+		usersemail = globalvariables.global_email 
+		if usersemail == "NIL":
+			print("you have not logged in")
 			flash("you have not logged in")
 		
 		#iterate through the list of schools and save them all
 		else: 
-			for school in saveList:
-				saveSchool(global_email, school, 100)
+			for school in schoolResultsList:
+				saveSchool(usersemail, school, 100)
+				print("its saved")
 
-	return render_template('results.html', form = form)
-	
+
+	return render_template('results.html', form=form)
+
+class MultiCheckboxField(SelectMultipleField):
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+
+class SaveSchoolsForm(FlaskForm):
+
+    resultslist = globalvariables.school_list
+    print('im reading at saveschoolsform')
+    print(resultslist)
+    schoolchoices = [(x, x) for x in resultslist]
+    schools = MultiCheckboxField('Results', choices=schoolchoices)
+
+    
+
+
 
 	
 
