@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="jquery-3.3.1.min.js"></script>
+		<script src="jquery-3.3.1.min.js"></script>
+			
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css' }}">
+	  <!-- {{ url_for('static', filename='bootstrap_def.css' }} --> 
+			
     <title>Search Schoogle</title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'UI.css') }}"/><!--//so we can use render_template in flask-->
+		<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico' }}">
+    <!-- {{ url_for('static', filename='favicon.ico' }} --> 
+
   </head>
   <body>
-    <img id="small_logo_icon" src="{{ url_for('static', filename = 'cap.svg') }}"/><!--//so we can use render_template in flask-->
-    <span id="schoogle">Schoogle</span>
+      <div class="container">
+          
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+          <a class="navbar-brand" href="#">Schoogle</a>
+        </nav>
+      
+      </div>
 	
-    <p><div id="big_letter">Search By:</div></br>
-	<a href="{{ url_for('searchByCpage') }}"><button class="button_big">Criteria</button></a></p>
+      <div class="jumbotron">
+          Search by<br/>
+          
+          <a href="{{ url_for('searchByC') }}" class ="btn btn-primary btn-rlg">Criteria</a><br/>
+  
+          <a href="{{ url_for('searchByN') }}" class ="btn btn-primary btn-rlg">Name</a><br/>
 
-    <p><a href="{{ url_for('searchByNpage') }}"><button class="button_big">Name</button></a></p>
+          <a href="{{ url_for('searchByM') }}" class ="btn btn-primary btn-rlg">Map</a>
+      </div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <p><a href="{{ url_for('searchByM') }}"><button class="button_big">Map</button></a></p>
   </body>
 </html>

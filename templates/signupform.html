@@ -1,83 +1,110 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="jquery-3.3.1.min.js"></script>
-    <title>Schoogle</title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'UI.css') }}"/><!--//so we can use render_template in flask-->
-  </head>
-  <body>
-    <img id="small_logo_icon" src="{{ url_for('static', filename = 'cap.svg') }}"/><!--//so we can use render_template in flask-->
-    <span id="schoogle">Schoogle</span>
-	 
-    <form method="post" action=""> 
-		{{ form.hidden_tag() }} <!--//deep concept that we do not need to understand, just add it in for now-->
-		
-		<!--//please refer to code if unsure, it has to be this way-->
-		<!--//can design it using bootstrap/css, preferably bootstrap-->
-		{{ form.email.label }} <!--//from the form object in flaskCode.py, get the email object, from which we get its label-->
-		
-		<span> Please enter an email address that has not been registered with us </span>
-		
-		<!--//print out errors in the email input if any-->
-		{% if form.email.errors %} <!--//if the length of the errors list is >0 aka there are errors-->
-				
-			{% for error in form.email.errors %} <!--//for each error--> 
-				<span> {{ error }} </span> 
-			{% endfor %} 
+	<head>
+		<script src="jquery-3.3.1.min.js"></script>
 			
-		{% endif %}	 
-
-		<!--//email object handles the user input-->
-		{{ form.email }}
-				
-			 
-		
-		{{ form.password.label }}
-		
-		<span> The password must be between 8 and 12 characters long, and must contain exactly 1 uppercase letter and 1 digit </span> 
-			
-		{% if form.password.errors %} 
-				
-			{% for error in form.password.errors %} 
-				<span> {{ error }} </span> 
-			{% endfor %} 
-			
-		{% endif %}
-				
-		{{ form.password }}
-				
-		
-		
-		{{ form.confirmPassword.label }}
-		
-		{% if form.confirmPassword.errors %} 
-			
-			{% for error in form.confirmPassword.errors %} 
-				<span> {{ error }} </span> 
-			{% endfor %} 
-			
-		{% endif %}
-				
-		{{ form.confirmPassword }}
-				
-			
-		
-		{{ form.postalCode.label }}
-		
-		{% if form.postalCode.errors %} 
-			
-			{% for error in form.postalCode.errors %} 
-				<span> {{ error }} </span> 
-			{% endfor %} 
-			
-		{% endif %}
-				
-		{{ form.postalCode }}
-				
-			
-		{{ form.submit }}
-		
-	</form>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css' }}">
+	    <!-- {{ url_for('static', filename='bootstrap_def.css' }} --> 
+			
+		<title>Schoogle - Sign Up</title>
+		<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico' }}">
+		<!-- {{ url_for('static', filename='favicon.ico' }} --> 
+	
+	</head>
+  
+	<body>
+		<div class="container">
+          
+			<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+				<a class="navbar-brand" href="#">Schoogle</a>
+			</nav>
+      
+       	</div>
+	
+      	<div class="jumbotron">
+			<form method="post" action=""> 
+				{{ form.hidden_tag() }} <!--//deep concept that we do not need to understand, just add it in for now-->
+				
+				<!--//please refer to code if unsure, it has to be this way-->
+				<!--//can design it using bootstrap/css, preferably bootstrap-->
+				{{ form.email.label }} <!--//from the form object in flaskCode.py, get the email object, from which we get its label-->
+				
+				<span> Please enter an email address that has not been registered with us </span>
+				
+				<!--//print out errors in the email input if any-->
+				{% if form.email.errors %} <!--//if the length of the errors list is >0 aka there are errors-->
+						
+					{% for error in form.email.errors %} <!--//for each error--> 
+						<span> {{ error }} </span> 
+					{% endfor %} 
+					
+				{% endif %}	 
+
+				<!--//email object handles the user input-->
+				{{ form.email }}
+						
+					
+				
+				{{ form.password.label }}
+				
+				<span> The password must be between 8 and 12 characters long, and must contain exactly 1 uppercase letter and 1 digit </span> 
+					
+				{% if form.password.errors %} 
+						
+					{% for error in form.password.errors %} 
+						<span> {{ error }} </span> 
+					{% endfor %} 
+					
+				{% endif %}
+						
+				{{ form.password }}
+						
+				
+				
+				{{ form.confirmPassword.label }}
+				
+				{% if form.confirmPassword.errors %} 
+					
+					{% for error in form.confirmPassword.errors %} 
+						<span> {{ error }} </span> 
+					{% endfor %} 
+					
+				{% endif %}
+						
+				{{ form.confirmPassword }}
+						
+					
+				
+				{{ form.postalCode.label }}
+				
+				{% if form.postalCode.errors %} 
+					
+					{% for error in form.postalCode.errors %} 
+						<span> {{ error }} </span> 
+					{% endfor %} 
+					
+				{% endif %}
+						
+				{{ form.postalCode }}
+						
+					
+				{{ form.submit }}
+				
+			</form>
+			
+     	</div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
   </body>
 </html>

@@ -2,17 +2,46 @@
 <html>
   <head>
     <script src="jquery-3.3.1.min.js"></script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css' }}"><!--//so we can use render_template in flask-->
+     <!-- {{ url_for('static', filename='bootstrap_def.css' }} --> 
+    
     <title>Schoogle</title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'UI.css') }}"/><!--//so we can use render_template in flask-->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico' }}">
+     <!-- {{ url_for('static', filename='favicon.ico' }} --> 
+ 
   </head>
   <body>
-	<div id="top">Schoogle</div>
-	<img id="big_logo_icon" src="{{ url_for('static', filename = 'cap.svg') }}"/><!--//so we can use render_template in flask-->
-	
-    Your one stop assistant in finding the school for you!<br/>
-    <a href="{{ url_for('login') }}"><button class="button_big">Log In</button></a>
-	<div id="small_letter">Don't have an account? <a href="{{ url_for('signUp') }}" id="under"> Create now!</a> </div>
-	<p>or just</br>
-    <a href="{{ url_for('search') }}"><button class="button_big">Start Searching!</button></a></p>
+    <div class="container">
+
+      <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Schoogle</a>
+      </nav>
+    
+    </div>    
+    
+    <div class="jumbotron">
+      <img class="logo_image" src="{{ url_for('static', filename = 'cap.svg') }}"/><br/>
+      <!-- {{ url_for('static', filename = 'cap.svg') }} -->
+      Your one stop assistant in finding the school for you!<br/>
+      <a href="{{ url_for('login') }}" class ="btn btn-primary btn-lg">Log In</a></br>
+      <span class="small_letter">Don't have an account? <a href="{{ url_for('signUp') }}" class="under"> Create now!</a></span>
+      <p>or just</br>
+      <a href="{{ url_for('search') }}" class="btn btn-primary btn-lg">Start Searching!</a>
+      </p>
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
   </body>
 </html>
