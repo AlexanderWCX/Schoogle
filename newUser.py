@@ -42,6 +42,9 @@ def writeNewUserToDB(email, password, postalCode):
 	else:
 		newWS.write(row, 2, postalCode)
 
+	# set no of schools saved to 0
+	newWS.write(row+1, 0,0)
+
 	# increment the number of records and write it to the database
 	newWS.write(0, 1, numOfRecords + 1) 
 	

@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 # set the secret key for the app for security reasons
 app.config['SECRET_KEY'] = 'carol98hanee96alex96germ98'
-app.secret_key = 'dljsaklqk24e21cjn!Ew@@dsa5'
+
 
 #create global variables that 
 global log_in 
@@ -27,6 +27,8 @@ global global_email
 global_email = "NIL"
 global global_list_of_schools 
 global_list_of_schools = []
+global usersavedschool
+usersavedschool =[]
 
 @app.route('/')
 @app.route('/home')
@@ -62,7 +64,7 @@ def login():
 				global global_email
 				global_email = email
 				# both email and password are correct, redirect to initial UI page
-				return redirect(url_for('home'))
+				return redirect(url_for('search'))
 
 
 	# render template on html and form
@@ -144,7 +146,14 @@ def searchByCpage():
 		global global_list_of_schools
 		global_list_of_schools = resultslist
 
-		return redirect(url_for('results'))
+		global global_email
+		if global_email == "NIL":
+			return redirect(url_for('results'))
+		
+		else:
+			return redirect(url_for('loggedinresults'))
+
+		
 
 	# with the form object and html template, render the template and return it to route 	
 	return render_template('searchByC.html', form = form)
@@ -171,8 +180,13 @@ def searchByNpage():
 		#print(resultslist)
 		print('setting global variable successful')
 		#print(global_list_of_schools)
+
+		global global_email
+		if global_email == "NIL":
+			return redirect(url_for('results'))
 		
-		return redirect(url_for('results'))
+		else:
+			return redirect(url_for('loggedinresults'))
 		
 	# with the form object and html template, render the template and return it to route 	
 	return render_template('searchByN.html', form = form)
@@ -181,35 +195,40 @@ def searchByNpage():
 def savedlist():
 	return(render_template('usersavedlist.html'))
 
-@app.route('/results')
+@app.route('/results', methods=['get', 'post'])
 def results():
 
-	form = SaveSchoolsForm()
-	
-	if True:
-		#get list of schools chosen to be saved
-		schoolResultsList = form.schools.data
-		#print('gotten schoolResultsList')
-		#print(schoolResultsList)
-
-		#checking if the user has logged in
-		usersemail = globalvariables.global_email 
-		if usersemail == "NIL":
-			#print("you have not logged in")
-			flash("you have not logged in")
+	global global_list_of_schools
+	#print('im in results route')	
 		
-		#iterate through the list of schools and save them all
-		else: 
-			for school in schoolResultsList:
-				saveSchool(usersemail, school, 100)
-				#print("its saved")
+	return render_template('results.html', global_list_of_schools = global_list_of_schools)
+			
+
+@app.route('/loggedinresults', methods=['get', 'post'])
+def loggedinresults():
+
+	global global_list_of_schools
+
+	global global_email
+	usersemail = global_email
+
+	if request.method == 'POST':
+		schoolToSaveList = request.form.getlist('schooloptions')
+		#print(schoolToSaveList)
+
+		for school in schoolToSaveList:
+				savestatus = saveSchool(usersemail, school, 100)
+				#print(savestatus)
+
+		return redirect(url_for('loggedinresults'))
+
+	return render_template('loggedinresults.html', global_list_of_schools = global_list_of_schools)
+
+@app.route('/css')
+def css():
+	return(render_template('bootstrap_def.css'))
 
 
-	return render_template('results.html', form = form)
-
-
-
-    
 
 
 
