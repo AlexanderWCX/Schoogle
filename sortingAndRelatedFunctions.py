@@ -53,9 +53,40 @@ def sortByDistance(schoolList, userPostalCode):
     # return sortedSchoolsDistance
     return sortedSchoolsDistance
 
+def retrieveSavedSchools(email):
+    # open the userInformation workbook 
+    wb = xlrd.open_workbook('userInformation.xls')
+
+	# open the userInformation worksheet
+	ws = wb.sheet_by_name('userInformation')
+
+    # create schoolList
+    schoolList = []
+
+    # gives row index the email is stored in in the userInformation database 
+	row = findEmailInDB(email) 
+	
+	# if email does not exist in database 
+	if row == -1:
+		# no record, no sorting 
+		return False 
+
+	# retrieve number of schools stored in that record
+	numOfSchools = int(ws.cell(row + 1, 0).value)
+
+	# for each school in that record
+	for i in range(numOfSchools):
+		# append that school into schoolList
+		schoolList.append(ws.cell(row + 1, i + 1).value)
+
+    return schoolList
+    
 
 # sort the schools by the dates on which they are saved
 def sortBySavedDate(email):
+
+    # open the userInformation workbook 
+    wb = xlrd.open_workbook('userInformation.xls')
 
 	# open the userInformation worksheet
 	ws = wb.sheet_by_name('userInformation')
@@ -165,5 +196,3 @@ def findSchoolPostalCode(schoolName):
     postalCode = ws.cell(i, 6).value
 
     return postalCode
-
-return (True)
