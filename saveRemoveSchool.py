@@ -118,3 +118,4 @@ def deleteSavedSchool(email, schoolName):
 	
 	# removal successful 
 	return True
+	
