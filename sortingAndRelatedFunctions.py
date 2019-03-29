@@ -165,3 +165,5 @@ def findSchoolPostalCode(schoolName):
     postalCode = ws.cell(i, 6).value
 
     return postalCode
+
+return (True)
