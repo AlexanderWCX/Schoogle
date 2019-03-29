@@ -224,9 +224,7 @@ def loggedinresults():
 
 	return render_template('loggedinresults.html', global_list_of_schools = global_list_of_schools)
 
-@app.route('/css')
-def css():
-	return(render_template('bootstrap_def.css'))
+
 
 
 
