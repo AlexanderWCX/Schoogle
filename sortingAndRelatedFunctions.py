@@ -121,6 +121,9 @@ def sortBySavedDate(email):
     # return sortedSchoolsSavedDates
     return sortedSchoolsSavedDates
 
+def sortByAlphabetical(schoolList):
+    return sorted(schoolList)
+
 
 # function to get the distance between 2 locations
 def getDistance(postalCode1, postalCode2):
