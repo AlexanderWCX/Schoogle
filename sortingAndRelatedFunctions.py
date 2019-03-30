@@ -196,3 +196,23 @@ def findSchoolPostalCode(schoolName):
     postalCode = ws.cell(i, 6).value
 
     return postalCode
+
+#return the url for a map
+def getMap(name):
+
+    #Get the schools postal code
+    postal = findSchoolPostalCode(name)
+
+    #Get the latitude and Longitude of the school
+    coordinates = getLatLong(postal)
+
+    #Get the latitude of the school
+    latitude = coordinates[0]
+
+    #Get the longitude of the school
+    longitude = coordinates[1]
+
+    url='https://tools.onemap.sg/minimap/minimap.html?mWidth=440&mHeight=445&latLng='+latitude+','+longitude+'&zoomLevl=17&iwt=<b>'+name+'</b>&popupWidth=200&popupHeight=500&includePopup=true&onloadPopup=true&design=original'
+
+    return url
+
