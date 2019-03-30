@@ -324,10 +324,12 @@ def loggedinresults():
 				return redirect(url_for('loggedinresults'))
 
 			elif distance in list:
-				global_list_of_schools = sortByDistance(global_list_of_schools, userPostalCode)
+				sortedList = sortByDistance(global_list_of_schools, userPostalCode)
+				global_list_of_schools =sortedList[0]
+				
 				#print(schoolList)
 				return redirect(url_for('loggedinresults'))
-				
+
 			else:
 				for key in keys:
 					

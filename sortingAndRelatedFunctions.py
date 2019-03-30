@@ -138,11 +138,7 @@ def getDistance(postalCode1, postalCode2):
     routeType = 'drive'
 
     # token
-    token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI0ODAsInVzZXJfaWQiOjI0ODAsImVtYWlsIjoiZGFueWkxOTk4QGdtY' \
-            'WlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2V' \
-            'zc2lvbiIsImlhdCI6MTU1Mjg4NDQwNywiZXhwIjoxNTUzMzE2NDA3LCJuYmYiOjE1NTI4ODQ0MDcsImp0aSI6IjBjMzg5YjljNWY2YjQ' \
-            '3MDc2OTc2MTlmNjczZjZhZjRhIn0.535fjjFGvsFYLLwrYIVvIKIUc96HPGI8as1ntylVt0U'
-
+    token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI0ODAsInVzZXJfaWQiOjI0ODAsImVtYWlsIjoiZGFueWkxOTk4QGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9uZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTU1Mzk1NTA4NCwiZXhwIjoxNTU0Mzg3MDg0LCJuYmYiOjE1NTM5NTUwODQsImp0aSI6IjU3YjhmZTI1MzA2ODg2MjkzZWQ4OTAzYjJiZjc2NjUzIn0.ovF7c6dT_x0JM6wwd6C1ok6I9ZtNDYdfxDNOnMh_5KE'
     # formulate the url
     url = 'https://developers.onemap.sg/privateapi/routingsvc/route?start=' + start + '&end=' + end + '&routeType=' + routeType + \
           '&token=' + token
