@@ -214,5 +214,10 @@ def getMap(name):
 
     url='https://tools.onemap.sg/minimap/minimap.html?mWidth=440&mHeight=445&latLng='+latitude+','+longitude+'&zoomLevl=17&iwt=<b>'+name+'</b>&popupWidth=200&popupHeight=500&includePopup=true&onloadPopup=true&design=original'
 
+
+
     return url
+
+
+#<iframe src="{{ url }}" height=450px width=450px scrolling='no' frameborder='0' allowfullscreen='allowfullscreen'></iframe>
 
