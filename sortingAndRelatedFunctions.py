@@ -58,26 +58,26 @@ def retrieveSavedSchools(email):
     wb = xlrd.open_workbook('userInformation.xls')
 
 	# open the userInformation worksheet
-	ws = wb.sheet_by_name('userInformation')
+    ws = wb.sheet_by_name('userInformation')
 
     # create schoolList
     schoolList = []
 
     # gives row index the email is stored in in the userInformation database 
-	row = findEmailInDB(email) 
+    row = findEmailInDB(email) 
 	
 	# if email does not exist in database 
-	if row == -1:
+    if row == -1:
 		# no record, no sorting 
-		return False 
+        return False 
 
 	# retrieve number of schools stored in that record
-	numOfSchools = int(ws.cell(row + 1, 0).value)
+    numOfSchools = int(ws.cell(row + 1, 0).value)
 
 	# for each school in that record
-	for i in range(numOfSchools):
+    for i in range(numOfSchools):
 		# append that school into schoolList
-		schoolList.append(ws.cell(row + 1, i + 1).value)
+        schoolList.append(ws.cell(row + 1, i + 1).value)
 
     return schoolList
     
@@ -89,30 +89,30 @@ def sortBySavedDate(email):
     wb = xlrd.open_workbook('userInformation.xls')
 
 	# open the userInformation worksheet
-	ws = wb.sheet_by_name('userInformation')
+    ws = wb.sheet_by_name('userInformation')
 
     # create schoolList and savedDatesList
     schoolList = []
     savedDatesList = []
 
     # gives row index the email is stored in in the userInformation database 
-	row = findEmailInDB(email) 
+    row = findEmailInDB(email) 
 	
 	# if email does not exist in database 
-	if row == -1:
+    if row == -1:
 		# no record, no sorting 
-		return False 
+        return False 
 
 	# retrieve number of schools stored in that record
-	numOfSchools = int(ws.cell(row + 1, 0).value)
+    numOfSchools = int(ws.cell(row + 1, 0).value)
 
 	# for each school in that record
-	for i in range(numOfSchools):
+    for i in range(numOfSchools):
 		# append that school into schoolList
-		schoolList.append(ws.cell(row + 1, i + 1).value)
+        schoolList.append(ws.cell(row + 1, i + 1).value)
 
 		# append the corresponding saved date into savedDatesList
-		savedDatesList.append(ws.cell(row + 2, i + 1).value)
+        savedDatesList.append(ws.cell(row + 2, i + 1).value)
 
 
     # create a list named sortedSchoolsSavedDates of schoolList and savedDatesList

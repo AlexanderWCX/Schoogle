@@ -12,6 +12,9 @@ from saveRemoveSchool import saveSchool
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, widgets, SelectMultipleField
 import globalvariables
 import globalupdater
+from sortingAndRelatedFunctions import getMap
+from schoolInfoFetching import website, generalInformation, subjectsOffered, physicalCCAs, artsCCAs, clubCCAs, uniformCCAs, contactInfo, gettingThere
+
 
 # create a flask object
 app = Flask(__name__)
@@ -29,6 +32,8 @@ global global_list_of_schools
 global_list_of_schools = []
 global usersavedschool
 usersavedschool =[]
+global clickedschool
+clickedschool = "NO SCHOOL SELECTED"
 
 @app.route('/')
 @app.route('/home')
@@ -178,7 +183,7 @@ def searchByNpage():
 		global_list_of_schools = resultslist
 
 		#print(resultslist)
-		print('setting global variable successful')
+		#print('setting global variable successful')
 		#print(global_list_of_schools)
 
 		global global_email
@@ -199,7 +204,24 @@ def savedlist():
 def results():
 
 	global global_list_of_schools
-	#print('im in results route')	
+	#print('im in results route')
+	
+	if request.method == 'POST':
+		list = request.form
+		#print(list)
+		keys = list.keys()
+		
+		for key in keys:
+			school = key
+		
+		#print(school)
+
+		global clickedschool
+		clickedschool = school
+
+		return redirect(url_for('schoolinfo', clickedschool=clickedschool))
+		
+	
 		
 	return render_template('results.html', global_list_of_schools = global_list_of_schools)
 			
@@ -215,6 +237,21 @@ def loggedinresults():
 	if request.method == 'POST':
 		schoolToSaveList = request.form.getlist('schooloptions')
 		#print(schoolToSaveList)
+		
+		list = request.form
+		#print(list)
+		keys = list.keys()
+		
+		if keys:
+			for key in keys:
+				school = key
+			
+			#print(school)
+
+			global clickedschool
+			clickedschool = school
+
+			return redirect(url_for('schoolinfo', clickedschool=clickedschool))
 
 		for school in schoolToSaveList:
 				savestatus = saveSchool(usersemail, school, 100)
@@ -224,7 +261,82 @@ def loggedinresults():
 
 	return render_template('loggedinresults.html', global_list_of_schools = global_list_of_schools)
 
+@app.route('/schoolinfo')
+def schoolinfo():
 
+	global clickedschool
+
+	url = getMap(clickedschool)
+
+	# Getting information from databases
+	schoolwebsite = website(clickedschool)
+	schoolgeneralInfoList = generalInformation(clickedschool)
+	subjectList = subjectsOffered(clickedschool)
+	schoolphysicalCCAs = physicalCCAs(clickedschool)
+	schoolartsCCAs = artsCCAs(clickedschool)
+	schoolclubCCAs = clubCCAs(clickedschool)
+	schooluniformCCAs = uniformCCAs(clickedschool)
+	schoolcontactInfo = contactInfo(clickedschool)
+	schoolgettingThere = gettingThere(clickedschool)
+
+	if schoolwebsite == "None":
+		schoolwebsite = "No website found"
+
+	if not schoolgeneralInfoList:
+		for x in range(0, 6):
+			message = "No information found"
+			schoolgeneralInfoList.append(message)
+
+		
+	schooltype = schoolgeneralInfoList[0]
+	schooltype.title()
+	gender = schoolgeneralInfoList[1]
+	gender.title()
+	principal = schoolgeneralInfoList[2]
+	principal.title()
+	vision = schoolgeneralInfoList[3]
+	mission = schoolgeneralInfoList[4]
+	philosophy = schoolgeneralInfoList[5]
+	
+					
+	if not subjectList:
+		message = "No information found"
+		subjectList.append(message)
+
+	if not schoolphysicalCCAs:
+		message = "No information found"
+		schoolphysicalCCAs.append(message)
+	
+	if not schoolartsCCAs:
+		message = "No information found"
+		schoolartsCCAs.append(message)
+	
+	if not schoolclubCCAs:
+		message = "No information found"
+		schoolclubCCAs.append(message)
+	
+	if not schooluniformCCAs:
+		message = "No information found"
+		schooluniformCCAs.append(message)
+		
+	
+	email = schoolcontactInfo[0]
+	telephone = schoolcontactInfo[1]
+	fax = schoolcontactInfo[2]
+		
+	
+	address = schoolgettingThere[0]
+	postalcode = schoolgettingThere[1]
+	nearestMRT = schoolgettingThere[2]
+	buses = schoolgettingThere[3]
+
+
+	return(render_template('schoolinfo.html', clickedschool = clickedschool, schoolwebsite = schoolwebsite,
+    schooltype = schooltype, gender = gender, principal = principal, vision = vision, philosophy = philosophy, 
+	subjectList = subjectList, schoolphysicalCCAs = schoolphysicalCCAs, schoolartsCCAs = schoolartsCCAs, 
+	schoolclubCCAs = schoolclubCCAs, schooluniformCCAs = schooluniformCCAs,
+	email = email, telephone = telephone, fax = fax, address = address,
+	postalcode = postalcode, nearestMRT = nearestMRT, buses = buses, url = url ))
 
 
 
