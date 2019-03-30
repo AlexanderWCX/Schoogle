@@ -14,7 +14,7 @@ import globalvariables
 import globalupdater
 from sortingAndRelatedFunctions import getMap, retrieveSavedSchools
 from schoolInfoFetching import website, generalInformation, subjectsOffered, physicalCCAs, artsCCAs, clubCCAs, uniformCCAs, contactInfo, gettingThere
-
+from datetime import datetime
 
 # create a flask object
 app = Flask(__name__)
@@ -278,6 +278,9 @@ def loggedinresults():
 	global global_email
 	usersemail = global_email
 
+	userSavedList = retrieveSavedSchools(global_email)
+	
+
 	if request.method == 'POST':
 		
 		list = request.form
@@ -289,7 +292,9 @@ def loggedinresults():
 
 		if schoolToSaveList:
 			for school in schoolToSaveList:
-				savestatus = saveSchool(usersemail, school, 100)
+				now = datetime.now()
+				#print(now)
+				savestatus = saveSchool(usersemail, school, now)
 				#print(savestatus)
 
 			return redirect(url_for('loggedinresults'))
@@ -305,7 +310,7 @@ def loggedinresults():
 
 			return redirect(url_for('schoolinfo', clickedschool=clickedschool))
 
-	return render_template('loggedinresults.html', global_list_of_schools = global_list_of_schools)
+	return render_template('loggedinresults.html', global_list_of_schools = global_list_of_schools, userSavedList= userSavedList)
 
 @app.route('/schoolinfo')
 def schoolinfo():

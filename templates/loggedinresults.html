@@ -19,18 +19,23 @@
     <h1>My Results</h1>
     <form method="post" id = "myForm">
     
-      {% for school in global_list_of_schools%}
+      {% for school in global_list_of_schools %}
       
-      <!-- Prints school name -->
-      {{ school }}
+        <!-- Prints school name -->
+        {{ school }}
 
-      <!--Make "More Information.." button for the school-->
-      <input type="submit" name="{{ school }}" value="More Information.."> 
-      <br />
+        <!--Make "More Information.." button for the school-->
+        <input type="submit" name="{{ school }}" value="More Information.."> 
+        <br />
 
-      <!-- Make "Save School" button for the school-->
-      <input type="checkbox" name = "schooloptions" value = "{{ school }}">
-      <br />
+        
+          
+          {% if school not in userSavedList %}
+              <!-- Make "Save School" button for the school-->
+              <input type="checkbox" name = "schooloptions" value = "{{ school }}">
+              <br />
+          {% endif %}
+        
 
   
       {% endfor %}
