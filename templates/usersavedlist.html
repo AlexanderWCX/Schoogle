@@ -29,8 +29,16 @@
 
     <h1>My Saved Schools</h1>
     <form method="post">
+
+        Sort results by:
+        <input type="submit" name="alphabetical" value="Alphabetical">
+        {% if hasPostalCode %}
+        <input type="submit" name="distance" value="Distance">
+        {%endif%}
+        <input type="submit" name="saveddate" value="Saved Date">
+        <br />
       
-      {% for school in schoolList%}
+      {% for school in global_userSavedSchoolList %}
         
         <!-- Prints school name-->
         {{ school }}

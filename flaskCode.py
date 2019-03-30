@@ -36,6 +36,8 @@ global clickedschool
 clickedschool = "NO SCHOOL SELECTED"
 global userPostalCode
 userPostalCode = 0
+global global_userSavedSchoolList
+global_userSavedSchoolList = []
 
 @app.route('/')
 @app.route('/home')
@@ -205,7 +207,17 @@ def savedlist():
 	if global_email == "NIL":
 		return redirect(url_for('notloggedin'))
 	
-	schoolList = retrieveSavedSchools(global_email)
+	hasPostalCode = True
+
+	global userPostalCode
+	userPostalCode = retrievePostalCode(global_email)
+	if userPostalCode == "null":
+		hasPostalCode = False
+
+	global global_userSavedSchoolList
+	global_userSavedSchoolList = retrieveSavedSchools(global_email)
+	schoolList = global_userSavedSchoolList
+	print(global_userSavedSchoolList)
 
 	if request.method == 'POST':
 
@@ -224,18 +236,41 @@ def savedlist():
 
 		elif keys:
 
-			for key in keys:
-				school = key
+			alphabetical = "alphabetical"
+			distance = "distance"
+			savedDate = "saveddate"
+
+			if alphabetical in list:
+				global_userSavedSchoolList = sortByAlphabetical(schoolList)
+				print(global_userSavedSchoolList)
+				return redirect(url_for('savedlist'))
+
+			elif distance in list:
+				sortedList = sortByDistance(global_userSavedSchoolList, userPostalCode)
+				global_userSavedSchoolList =sortedList[0]
+				
+				#print(schoolList)
+				return redirect(url_for('savedlist'))
 			
-			#print(school)
+			elif savedDate in list:
+				global_userSavedSchoolList = sortBySavedDate(global_email)
+				#print(schoolList)
+				return redirect(url_for('savedlist'))
 
-			global clickedschool
-			clickedschool = school
+			else:
 
-			return redirect(url_for('schoolinfo', clickedschool=clickedschool))
+				for key in keys:
+					school = key
+				
+				#print(school)
+
+				global clickedschool
+				clickedschool = school
+
+				return redirect(url_for('schoolinfo', clickedschool = clickedschool))
 
 
-	return(render_template('usersavedlist.html', schoolList = schoolList))
+	return(render_template('usersavedlist.html', global_userSavedSchoolList = global_userSavedSchoolList, hasPostalCode = hasPostalCode))
 
 
 @app.route('/notloggedin')
@@ -420,16 +455,6 @@ def schoolinfo():
 	schoolclubCCAs = schoolclubCCAs, schooluniformCCAs = schooluniformCCAs,
 	email = email, telephone = telephone, fax = fax, address = address,
 	postalcode = postalcode, nearestMRT = nearestMRT, buses = buses, url = url ))
-
-
-
-
-
-	
-
-
-
-
 
 
 

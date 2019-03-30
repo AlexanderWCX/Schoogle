@@ -236,7 +236,7 @@ def retrievePostalCode(email):
         return False 
 
     # retrieve postalcode
-    postalCode = int(ws.cell(row , 2).value)
+    postalCode = (ws.cell(row , 2).value)
 
     return postalCode
 
