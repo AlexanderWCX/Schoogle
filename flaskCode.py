@@ -12,7 +12,7 @@ from saveRemoveSchool import saveSchool, deleteSavedSchool
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, widgets, SelectMultipleField
 import globalvariables
 import globalupdater
-from sortingAndRelatedFunctions import getMap, retrieveSavedSchools
+from sortingAndRelatedFunctions import getMap, retrieveSavedSchools, sortByAlphabetical, sortByDistance, sortBySavedDate
 from schoolInfoFetching import website, generalInformation, subjectsOffered, physicalCCAs, artsCCAs, clubCCAs, uniformCCAs, contactInfo, gettingThere
 from datetime import datetime
 
@@ -248,26 +248,40 @@ def notloggedin():
 def results():
 
 	global global_list_of_schools
+	schoolList = global_list_of_schools
 	#print('im in results route')
 	
 	if request.method == 'POST':
 		list = request.form
-		#print(list)
+		print(list)
 		keys = list.keys()
+		print(keys)
 		
-		for key in keys:
-			school = key
-		
-		#print(school)
+		alphabetical = "alphabetical"
 
-		global clickedschool
-		clickedschool = school
+		if alphabetical in list:
+			print("F YEAH")
+			global_list_of_schools = sortByAlphabetical(schoolList)
+			print(schoolList)
+			return redirect(url_for('results'))
 
-		return redirect(url_for('schoolinfo', clickedschool=clickedschool))
+
+		else:
+
+			for key in keys:
+				#print(key)
+				school = key
+			
+				print(school)
+
+				global clickedschool
+				clickedschool = school
+
+				return redirect(url_for('schoolinfo', global_list_of_schools= global_list_of_schools))
 		
 	
 		
-	return render_template('results.html', global_list_of_schools = global_list_of_schools)
+	return render_template('results.html', schoolList = schoolList)
 			
 
 @app.route('/loggedinresults', methods=['get', 'post'])
@@ -301,14 +315,15 @@ def loggedinresults():
 
 		elif keys:
 			for key in keys:
+				
 				school = key
 			
-			#print(school)
+				print(school)
 
-			global clickedschool
-			clickedschool = school
+				global clickedschool
+				clickedschool = school
 
-			return redirect(url_for('schoolinfo', clickedschool=clickedschool))
+				return redirect(url_for('schoolinfo', clickedschool=clickedschool))
 
 	return render_template('loggedinresults.html', global_list_of_schools = global_list_of_schools, userSavedList= userSavedList)
 

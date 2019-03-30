@@ -3,28 +3,26 @@
   <head>
     
     <title>Schoogle - My Results</title>
-    <script>
-    
-      function checkButton(schoolname){
-        
-        //alert(schoolname);
-        //{% set schoolname = request.schoolname %}
-
-      }
-    
-    </script>
+  
   </head>
 
   <body>
 
     <h1>My Results</h1>
     <form method="post" id = "myForm">
+      
+
+
+      Sort results by:<input type="submit" name="alphabetical" value="Alphabetical">
+      
+
+      <br />
     
-      {% for school in global_list_of_schools%}
+      {% for school in schoolList%}
       <!-- Prints school name-->
       {{ school }}
 
-      
+      <!--Make "More Information.." button for the school-->
       <input type="submit" name="{{ school }}" value="More Information.."> 
       
 
