@@ -12,7 +12,7 @@ from saveRemoveSchool import saveSchool, deleteSavedSchool
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, widgets, SelectMultipleField
 import globalvariables
 import globalupdater
-from sortingAndRelatedFunctions import getMap, retrieveSavedSchools, sortByAlphabetical, sortByDistance, sortBySavedDate
+from sortingAndRelatedFunctions import getMap, retrieveSavedSchools, sortByAlphabetical, sortByDistance, sortBySavedDate, retrievePostalCode
 from schoolInfoFetching import website, generalInformation, subjectsOffered, physicalCCAs, artsCCAs, clubCCAs, uniformCCAs, contactInfo, gettingThere
 from datetime import datetime
 
@@ -34,6 +34,8 @@ global usersavedschool
 usersavedschool =[]
 global clickedschool
 clickedschool = "NO SCHOOL SELECTED"
+global userPostalCode
+userPostalCode = 0
 
 @app.route('/')
 @app.route('/home')
@@ -221,6 +223,7 @@ def savedlist():
 			return redirect(url_for('savedlist'))
 
 		elif keys:
+
 			for key in keys:
 				school = key
 			
@@ -237,12 +240,7 @@ def savedlist():
 
 @app.route('/notloggedin')
 def notloggedin():
-
-
 	return(render_template('notloggedin.html'))
-
-
-
 
 @app.route('/results', methods=['get', 'post'])
 def results():
@@ -253,33 +251,27 @@ def results():
 	
 	if request.method == 'POST':
 		list = request.form
-		print(list)
+		#print(list)
 		keys = list.keys()
-		print(keys)
+		#print(keys)
 		
 		alphabetical = "alphabetical"
 
 		if alphabetical in list:
-			print("F YEAH")
 			global_list_of_schools = sortByAlphabetical(schoolList)
-			print(schoolList)
+			#print(schoolList)
 			return redirect(url_for('results'))
 
-
 		else:
-
 			for key in keys:
 				#print(key)
 				school = key
-			
-				print(school)
+				#print(school)
 
 				global clickedschool
 				clickedschool = school
 
 				return redirect(url_for('schoolinfo', global_list_of_schools= global_list_of_schools))
-		
-	
 		
 	return render_template('results.html', schoolList = schoolList)
 			
@@ -288,9 +280,17 @@ def results():
 def loggedinresults():
 
 	global global_list_of_schools
+	schoolList = global_list_of_schools
 
 	global global_email
 	usersemail = global_email
+
+	hasPostalCode = True
+
+	global userPostalCode
+	userPostalCode = retrievePostalCode(global_email)
+	if userPostalCode == "null":
+		hasPostalCode = False
 
 	userSavedList = retrieveSavedSchools(global_email)
 	
@@ -314,18 +314,33 @@ def loggedinresults():
 			return redirect(url_for('loggedinresults'))
 
 		elif keys:
-			for key in keys:
+
+			alphabetical = "alphabetical"
+			distance = "distance"
+
+			if alphabetical in list:
+				global_list_of_schools = sortByAlphabetical(schoolList)
+				#print(schoolList)
+				return redirect(url_for('loggedinresults'))
+
+			elif distance in list:
+				global_list_of_schools = sortByDistance(global_list_of_schools, userPostalCode)
+				#print(schoolList)
+				return redirect(url_for('loggedinresults'))
 				
-				school = key
-			
-				print(school)
+			else:
+				for key in keys:
+					
+					school = key
+				
+					print(school)
 
-				global clickedschool
-				clickedschool = school
+					global clickedschool
+					clickedschool = school
 
-				return redirect(url_for('schoolinfo', clickedschool=clickedschool))
+					return redirect(url_for('schoolinfo', clickedschool=clickedschool))
 
-	return render_template('loggedinresults.html', global_list_of_schools = global_list_of_schools, userSavedList= userSavedList)
+	return render_template('loggedinresults.html', global_list_of_schools = global_list_of_schools, userSavedList= userSavedList, hasPostalCode=hasPostalCode)
 
 @app.route('/schoolinfo')
 def schoolinfo():

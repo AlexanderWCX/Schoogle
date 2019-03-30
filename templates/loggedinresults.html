@@ -18,6 +18,14 @@
 
     <h1>My Results</h1>
     <form method="post" id = "myForm">
+
+        Sort results by:
+        <input type="submit" name="alphabetical" value="Alphabetical">
+        {% if hasPostalCode %}
+        <input type="submit" name="distance" value="Distance">
+        {%endif%}
+
+        <br />
     
       {% for school in global_list_of_schools %}
       

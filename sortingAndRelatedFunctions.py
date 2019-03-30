@@ -224,3 +224,27 @@ def getMap(name):
 
 #<iframe src="{{ url }}" height=450px width=450px scrolling='no' frameborder='0' allowfullscreen='allowfullscreen'></iframe>
 
+def retrievePostalCode(email):
+    # open the userInformation workbook 
+    wb = xlrd.open_workbook('userInformation.xls')
+
+	# open the userInformation worksheet
+    ws = wb.sheet_by_name('userInformation')
+
+    # gives row index the email is stored in in the userInformation database 
+    row = findEmailInDB(email) 
+	
+	# if email does not exist in database 
+    if row == -1:
+		# no record, no sorting 
+        return False 
+
+    # retrieve postalcode
+    postalCode = int(ws.cell(row , 2).value)
+
+    return postalCode
+
+    
+
+
+
