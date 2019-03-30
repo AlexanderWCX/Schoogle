@@ -3,6 +3,15 @@
   <head>
     
     <title>Schoogle - My Results</title>
+
+    <script>
+
+        function alertUser(){
+          alert("Selected school(s) has been successfully saved!");
+        }
+      
+      </script>
+
   </head>
 
   <body>
@@ -26,7 +35,7 @@
   
       {% endfor %}
 
-      <input type="submit" value ="Save Selected Schools">
+      <input onclick="alertUser();" type="submit" value ="Save Selected Schools">
 
 
   </form>

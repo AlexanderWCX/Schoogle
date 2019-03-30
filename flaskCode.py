@@ -8,11 +8,11 @@ from newUser import writeNewUserToDB
 from verifyEmailAndPassword import findEmailInDB, passwordMatchesThatPairedWithEmailInDB 
 from searchByN import searchByN
 from searchByC import searchByC
-from saveRemoveSchool import saveSchool
+from saveRemoveSchool import saveSchool, deleteSavedSchool
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, widgets, SelectMultipleField
 import globalvariables
 import globalupdater
-from sortingAndRelatedFunctions import getMap
+from sortingAndRelatedFunctions import getMap, retrieveSavedSchools
 from schoolInfoFetching import website, generalInformation, subjectsOffered, physicalCCAs, artsCCAs, clubCCAs, uniformCCAs, contactInfo, gettingThere
 
 
@@ -69,7 +69,7 @@ def login():
 				global global_email
 				global_email = email
 				# both email and password are correct, redirect to initial UI page
-				return redirect(url_for('search'))
+				return redirect(url_for('savedlist'))
 
 
 	# render template on html and form
@@ -196,9 +196,53 @@ def searchByNpage():
 	# with the form object and html template, render the template and return it to route 	
 	return render_template('searchByN.html', form = form)
 
-@app.route('/savedlist')
+@app.route('/savedlist', methods=['get', 'post'])
 def savedlist():
-	return(render_template('usersavedlist.html'))
+
+	global global_email
+	if global_email == "NIL":
+		return redirect(url_for('notloggedin'))
+	
+	schoolList = retrieveSavedSchools(global_email)
+
+	if request.method == 'POST':
+
+		list = request.form
+		#print(list)
+		keys = list.keys()
+
+		schoolToUnsaveList = request.form.getlist('unsaveList')
+		#print(schoolToUnsaveList)
+		if schoolToUnsaveList:
+			for school in schoolToUnsaveList:
+				unsaveStatus = deleteSavedSchool(global_email, school)
+				#print(unsaveStatus)
+
+			return redirect(url_for('savedlist'))
+
+		elif keys:
+			for key in keys:
+				school = key
+			
+			#print(school)
+
+			global clickedschool
+			clickedschool = school
+
+			return redirect(url_for('schoolinfo', clickedschool=clickedschool))
+
+
+	return(render_template('usersavedlist.html', schoolList = schoolList))
+
+
+@app.route('/notloggedin')
+def notloggedin():
+
+
+	return(render_template('notloggedin.html'))
+
+
+
 
 @app.route('/results', methods=['get', 'post'])
 def results():
@@ -235,14 +279,22 @@ def loggedinresults():
 	usersemail = global_email
 
 	if request.method == 'POST':
-		schoolToSaveList = request.form.getlist('schooloptions')
-		#print(schoolToSaveList)
 		
 		list = request.form
 		#print(list)
 		keys = list.keys()
 		
-		if keys:
+		schoolToSaveList = request.form.getlist('schooloptions')
+		#print(schoolToSaveList)
+
+		if schoolToSaveList:
+			for school in schoolToSaveList:
+				savestatus = saveSchool(usersemail, school, 100)
+				#print(savestatus)
+
+			return redirect(url_for('loggedinresults'))
+
+		elif keys:
 			for key in keys:
 				school = key
 			
@@ -252,12 +304,6 @@ def loggedinresults():
 			clickedschool = school
 
 			return redirect(url_for('schoolinfo', clickedschool=clickedschool))
-
-		for school in schoolToSaveList:
-				savestatus = saveSchool(usersemail, school, 100)
-				#print(savestatus)
-
-		return redirect(url_for('loggedinresults'))
 
 	return render_template('loggedinresults.html', global_list_of_schools = global_list_of_schools)
 
@@ -332,7 +378,7 @@ def schoolinfo():
 
 
 	return(render_template('schoolinfo.html', clickedschool = clickedschool, schoolwebsite = schoolwebsite,
-    schooltype = schooltype, gender = gender, principal = principal, vision = vision, philosophy = philosophy, 
+    schooltype = schooltype, gender = gender, principal = principal, vision = vision, mission = mission, philosophy = philosophy, 
 	subjectList = subjectList, schoolphysicalCCAs = schoolphysicalCCAs, schoolartsCCAs = schoolartsCCAs, 
 	schoolclubCCAs = schoolclubCCAs, schooluniformCCAs = schooluniformCCAs,
 	email = email, telephone = telephone, fax = fax, address = address,
