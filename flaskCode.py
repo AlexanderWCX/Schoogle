@@ -72,6 +72,8 @@ def login():
 				log_in = True
 				global global_email
 				global_email = email
+				global global_userSavedSchoolList
+				global_userSavedSchoolList = retrieveSavedSchools(global_email)
 				# both email and password are correct, redirect to initial UI page
 				return redirect(url_for('savedlist'))
 
@@ -215,9 +217,9 @@ def savedlist():
 		hasPostalCode = False
 
 	global global_userSavedSchoolList
-	global_userSavedSchoolList = retrieveSavedSchools(global_email)
+	#global_userSavedSchoolList = retrieveSavedSchools(global_email)
 	schoolList = global_userSavedSchoolList
-	print(global_userSavedSchoolList)
+	#print(global_userSavedSchoolList)
 
 	if request.method == 'POST':
 
@@ -242,7 +244,7 @@ def savedlist():
 
 			if alphabetical in list:
 				global_userSavedSchoolList = sortByAlphabetical(schoolList)
-				print(global_userSavedSchoolList)
+				#print(global_userSavedSchoolList)
 				return redirect(url_for('savedlist'))
 
 			elif distance in list:
