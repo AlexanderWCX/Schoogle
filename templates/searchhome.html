@@ -9,12 +9,10 @@
 	
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css' }}">
-	  <!-- {{ url_for('static', filename='bootstrap_def.css' }} --> 
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css') }}">
 			
     <title>Search Schoogle</title>
-		<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico' }}">
-    <!-- {{ url_for('static', filename='favicon.ico' }} --> 
+		<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
   </head>
   <body>
@@ -29,11 +27,11 @@
       <div class="jumbotron">
           Search by<br/>
           
-          <a href="{{ url_for('searchByC') }}" class ="btn btn-primary btn-rlg">Criteria</a><br/>
+          <a class ="btn btn-primary btn-rlg" href="{{ url_for('searchByCpage') }}">Criteria</a><br/>
   
-          <a href="{{ url_for('searchByN') }}" class ="btn btn-primary btn-rlg">Name</a><br/>
+          <a class ="btn btn-primary btn-rlg" href="{{ url_for('searchByNpage') }}">Name</a><br/>
 
-          <a href="{{ url_for('searchByM') }}" class ="btn btn-primary btn-rlg">Map</a>
+          <a class ="btn btn-primary btn-rlg" href="{{ url_for('searchByM') }}">Map</a>
       </div>
       
     <!-- Optional JavaScript -->

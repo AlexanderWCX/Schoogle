@@ -9,12 +9,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css' }}"><!--//so we can use render_template in flask-->
-     <!-- {{ url_for('static', filename='bootstrap_def.css' }} --> 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css') }}">
     
     <title>Schoogle</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico' }}">
-     <!-- {{ url_for('static', filename='favicon.ico' }} --> 
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
  
   </head>
   <body>
@@ -28,12 +26,12 @@
     
     <div class="jumbotron">
       <img class="logo_image" src="{{ url_for('static', filename = 'cap.svg') }}"/><br/>
-      <!-- {{ url_for('static', filename = 'cap.svg') }} -->
+
       Your one stop assistant in finding the school for you!<br/>
-      <a href="{{ url_for('login') }}" class ="btn btn-primary btn-lg">Log In</a></br>
+      <a class ="btn btn-primary btn-lg" href="{{ url_for('login') }}">Log In</a></br>
       <span class="small_letter">Don't have an account? <a href="{{ url_for('signUp') }}" class="under"> Create now!</a></span>
       <p>or just</br>
-      <a href="{{ url_for('search') }}" class="btn btn-primary btn-lg">Start Searching!</a>
+      <a class="btn btn-primary btn-lg" href="{{ url_for('search') }}">Start Searching!</a>
       </p>
     </div>
     

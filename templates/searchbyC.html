@@ -9,12 +9,10 @@
 	
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css' }}">
-	  <!-- {{ url_for('static', filename='bootstrap_def.css' }} --> 
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css') }}">
 			
 		<title>Schoogle - Search by CCAs</title>
-		<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico' }}">
-		<!-- {{ url_for('static', filename='favicon.ico' }} --> 
+		<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 			
   </head>
   <body>
@@ -30,51 +28,62 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Search by <span class="caret"></span></a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ url_for('searchbyC') }}">CCAs</a>
+                  <a class="dropdown-item" href="{{ url_for('searchByCpage') }}">CCAs</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{{ url_for('searchbyN') }}">Name</a>
+                  <a class="dropdown-item" href="{{ url_for('searchByNpage') }}">Name</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{{ url_for('searchbyM') }}">Map</a>
+                  <a class="dropdown-item" href="{{ url_for('searchByM') }}">Map</a>
                 </div>
               </li>
             </ul>
           </div>
-          
       </nav>
     </div>
 
     <div class="jumbotron">
 
       <h1>Search By Criteria</h1>
-        
+      <br/>  
+
       <form method='post', action=''>
-        {{ form.hidden_tag() }} <!--//deep concept that we do not need to understand, just add it in for now--> 
-        <p>CCAs</p>
-        {{ form.sports.label }}
-        {{ form.sports }}
         
-        {{ form.arts.label }}
-        {{ form.arts }}
+        <fieldset class="form-group">
+          <legend>CCAs</legend>
+          {{ form.hidden_tag() }} <!--//deep concept that we do not need to understand, just add it in for now--> 
+            <div style="font-size: 23px;">{{ form.sports.label }}</div>
+            <span style="font-size: 20px;">{{ form.sports }}</span>
+
+            <div style="font-size: 23px;">{{ form.arts.label }}</div>
+            <span style="font-size: 20px;">{{ form.arts }}</span>
+            
+            <div style="font-size: 23px;">{{ form.uniformed.label }}</div>
+            <span style="font-size: 20px;">{{ form.uniformed }}</span>
+
+            <div style="font-size: 23px;">{{ form.societies.label }}</div>
+            <span style="font-size: 20px;">{{ form.societies }}</span>
+
+            <div style="font-size: 23px;">{{ form.subjects.label }}</div>
+            <span style="font-size: 20px;">{{ form.subjects }}</span>
+
+            <div style="font-size: 23px;">{{ form.types.label }}</div>
+            <span style="font-size: 20px;">{{ form.types }}</span>
+
+            <div style="font-size: 23px;">{{ form.gender.label }}</div>
+            <span style="font-size: 20px;">{{ form.gender }}</span>
+
+            <div style="font-size: 23px;">{{ form.focus.label }}</div>
+            <span style="font-size: 20px;">{{ form.focus }}</span>
+        </fieldset>
+
+        <input class="btn btn-primary btn-lg" type="submit" value="Submit">
+
+        <!-- <button type="submit" class="btn btn-primary">
+          {{ form.submit }}
+        </button>
+
+          
+        -->
         
-        {{ form.uniformed.label }}
-        {{ form.uniformed }}
-        
-        {{ form.societies.label }}
-        {{ form.societies }}
-        
-        {{ form.subjects.label }}
-        {{ form.subjects }}
-        
-        {{ form.types.label }}
-        {{ form.types }}
-        
-        {{ form.gender.label }}
-        {{ form.gender }}
-        
-        {{ form.focus.label }}
-        {{ form.focus }}
-      
-        {{ form.submit }}
         
       </form>
     </div>

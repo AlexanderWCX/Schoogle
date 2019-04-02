@@ -10928,4 +10928,45 @@ pre {
 
 .small_letter {
   font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.dropdown-item-large {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.dropdown-item-large:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #333;
+}
+
+.dropdown-item-large:hover {
+  color: #212529;
+  text-decoration: none;
+  background-color: #fff;
+}
+
+.dropdown-item-large.active, .dropdown-item-large:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #333;
+}
+
+.marg {
+  margin: 5px;
+}
+
+span.text-info {
+  color: #17a2b8 !important;
+  font-size: 15px !important;
 }
