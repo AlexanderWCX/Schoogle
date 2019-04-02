@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <title>Schoogle - School Information</title>
+  </head>
+
+  <body>
+
+    <h1>{{ clickedschool }}</h1>
+    <a href="{{ schoolwebsite }}">School Website</a>
+
+    <br />
+    <iframe src="{{ url }}" height=450px width=450px scrolling='no' frameborder='0' allowfullscreen='allowfullscreen'></iframe>
+    <br />
+
+
+    <h2>General Information</h2>
+    <p> {{ schooltype }} | {{ gender }} </p>
+    <p> Principal</p>
+    <p> {{ principal }}</p>
+    <p> Vision</p>
+    <p> {{ vision }}</p>
+    <p> Mission</p>
+    <p> {{ mission }}</p>
+    <p> School Philosophy, Culture and Ethos </p>
+    <p> {{ philosophy }}</p>
+
+    <br />
+    <br />
+
+    <h2>Subjects Offered</h2>
+    {% for subject in subjectList %}
+        {{ subject }}
+        <br />
+    {% endfor %}
+
+    <br />
+    <br />
+
+    <h2>CCAs Offered</h2>
+    <h3>Physical Sports</h3>
+    {% for sport in schoolphysicalCCAs %}
+        {{ sport }}
+        <br />
+    {% endfor %}
+
+    <br />
+
+    <h3>Visual and Performing Arts</h3>
+    {% for art in schoolartsCCAs %}
+        {{ art }}
+        <br />
+    {% endfor %}
+
+    <br />
+    
+    <h3>Clubs & Societies</h3>
+    {% for club in schoolclubCCAs %}
+        {{ club }}
+        <br />
+    {% endfor %}
+
+    <br />
+    
+    <h3>Uniformed Groups</h3>
+    {% for uniform in schooluniformCCAs %}
+        {{ uniform }}
+        <br />
+    {% endfor %}
+
+    <br />
+    <br />
+
+    <h2>Contact Information</h2>
+    <p>Email</p>
+    <p> {{ email }}</p>
+    <p>Telephone</p>
+    <p> {{ telephone }}</p>
+    <p>Fax</p>
+    <p> {{ fax }}</p>
+
+    <br />
+    <br />
+
+    <h2>Getting There</h2>
+    <p>Address</p>
+    <p>{{ address }}, Singapore {{ postalcode }}</p>
+    <p>Nearest MRT</p>
+    <p>{{ nearestMRT }}</p>
+    <p>Bus Services</p>
+    <p>{{ buses }}</p>
+
+    <br />
+    <br />
+
+
+
+    
+  </body>
+</html>
