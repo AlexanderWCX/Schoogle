@@ -255,7 +255,8 @@ def savedlist():
 				return redirect(url_for('savedlist'))
 			
 			elif savedDate in list:
-				global_userSavedSchoolList = sortBySavedDate(global_email)
+				sortedList = sortBySavedDate(global_email)
+				global_userSavedSchoolList =sortedList[0]
 				#print(schoolList)
 				return redirect(url_for('savedlist'))
 
