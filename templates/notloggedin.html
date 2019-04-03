@@ -2,18 +2,60 @@
 <html>
   <head>
     
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css') }}">
+    
     <title>Schoogle - Not Logged In</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+ 
   </head>
 
   <body>
+    <div class="container">     
+      <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+          <a class="navbar-brand" href="#">Schoogle</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Search by <span class="caret"></span></a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{{ url_for('searchByCpage') }}">CCAs</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ url_for('searchByNpage') }}">Name</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ url_for('searchByM') }}">Map</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+      </nav>
+    </div>
+
+    <div class="jumbotron">
+      <p>Sorry, you do not have access to this feature!</p>
     
-    <p>Sorry, you do not have access to this feature!</p>
-    <p>This feature is exclusive to registered users only.</p>
+      <p>This feature is exclusive to registered users only.</p>
 
-    <p>Have an account? <a href="{{ url_for('login') }}"><button class="button_big">Login now!</button></a></p>
+      <p>Have an account? <a href="{{ url_for('login') }}"><button class="btn btn-primary btn-lg">Login now!</button></a></p>
 
-    <p>Don't have an account yet? <a href="{{ url_for('signUp') }}"><button class="button_big">Login now!</button></a></p>
+      <p>Don't have an account yet? <a href="{{ url_for('signUp') }}"><button class="btn btn-primary btn-lg">Create now!</button></a></p>
 
-
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
   </body>
 </html>
