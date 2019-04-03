@@ -234,7 +234,7 @@ def savedlist():
 
 	#get user's list of saved schools
 	global global_userSavedSchoolList
-	global_userSavedSchoolList = retrieveSavedSchools(global_email)
+	#global_userSavedSchoolList = retrieveSavedSchools(global_email)
 	schoolList = global_userSavedSchoolList
 	
 	#in the event of any POST method
