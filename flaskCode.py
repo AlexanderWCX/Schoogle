@@ -253,8 +253,8 @@ def savedlist():
 			for school in schoolToUnsaveList:
 				unsaveStatus = deleteSavedSchool(global_email, school)
 			
-			global_userSavedSchoolList = retrieveSavedSchools
-			
+			global_userSavedSchoolList = retrieveSavedSchools(email)
+
 			#redirect back to savedlist page after unsaving is successful
 			return redirect(url_for('savedlist'))
 
@@ -403,7 +403,10 @@ def loggedinresults():
 				
 				now = datetime.now()
 				savestatus = saveSchool(usersemail, school, now)
-				
+
+			global global_userSavedSchoolList
+			global_userSavedSchoolList = retrieveSavedSchools(global_email)
+					
 			#redirect to resuts page
 			return redirect(url_for('loggedinresults'))
 
