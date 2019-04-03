@@ -2184,7 +2184,7 @@ textarea.form-control {
 }
 
 .form-check-input:disabled ~ .form-check-label {
-  color: #868e96;
+  color: black;
 }
 
 .form-check-label {
@@ -10963,10 +10963,23 @@ pre {
 }
 
 .marg {
-  margin: 5px;
+  margin: 10px;
 }
 
 span.text-info {
   color: #17a2b8 !important;
   font-size: 15px !important;
+}
+
+img.homepage {
+  width:50px;
+  height:50px;
+}
+
+g {
+  
+            width: 90% ;
+            float: left ;
+            text-align: left !important ;
+            font-size: 26px ;
 }

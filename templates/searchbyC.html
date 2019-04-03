@@ -23,7 +23,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           
-          <div class="collapse navbar-collapse" id="navbarResponsive">
+          <div class="collapse navbar-collapse " id="navbarResponsive">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Search by <span class="caret"></span></a>
@@ -43,35 +43,35 @@
     <div class="jumbotron">
 
       <h1>Search By Criteria</h1>
-      <br/>  
 
       <form method='post', action=''>
         
-        <fieldset class="form-group">
+        <fieldset>
           <legend>CCAs</legend>
-          {{ form.hidden_tag() }} <!--//deep concept that we do not need to understand, just add it in for now--> 
-            <div style="font-size: 23px;">{{ form.sports.label }}</div>
+            {{ form.hidden_tag() }} <!--//deep concept that we do not need to understand, just add it in for now--> 
+           
+            <div style="font-size: 25px;">{{ form.sports.label }}</div>
             <span style="font-size: 20px;">{{ form.sports }}</span>
 
-            <div style="font-size: 23px;">{{ form.arts.label }}</div>
+            <div style="font-size: 25px;">{{ form.arts.label }}</div>
             <span style="font-size: 20px;">{{ form.arts }}</span>
             
-            <div style="font-size: 23px;">{{ form.uniformed.label }}</div>
+            <div style="font-size: 25px;">{{ form.uniformed.label }}</div>
             <span style="font-size: 20px;">{{ form.uniformed }}</span>
 
-            <div style="font-size: 23px;">{{ form.societies.label }}</div>
+            <div style="font-size: 25px;">{{ form.societies.label }}</div>
             <span style="font-size: 20px;">{{ form.societies }}</span>
 
-            <div style="font-size: 23px;">{{ form.subjects.label }}</div>
+            <div style="font-size: 25px;">{{ form.subjects.label }}</div>
             <span style="font-size: 20px;">{{ form.subjects }}</span>
 
-            <div style="font-size: 23px;">{{ form.types.label }}</div>
+            <div style="font-size: 25px;">{{ form.types.label }}</div>
             <span style="font-size: 20px;">{{ form.types }}</span>
 
-            <div style="font-size: 23px;">{{ form.gender.label }}</div>
+            <div style="font-size: 25px;">{{ form.gender.label }}</div>
             <span style="font-size: 20px;">{{ form.gender }}</span>
 
-            <div style="font-size: 23px;">{{ form.focus.label }}</div>
+            <div style="font-size: 25px;">{{ form.focus.label }}</div>
             <span style="font-size: 20px;">{{ form.focus }}</span>
         </fieldset>
 
