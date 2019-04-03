@@ -234,7 +234,6 @@ def savedlist():
 
 	#get user's list of saved schools
 	global global_userSavedSchoolList
-	#global_userSavedSchoolList = retrieveSavedSchools(global_email)
 	schoolList = global_userSavedSchoolList
 	
 	#in the event of any POST method
@@ -253,7 +252,9 @@ def savedlist():
 			#unsave all selected schools
 			for school in schoolToUnsaveList:
 				unsaveStatus = deleteSavedSchool(global_email, school)
-				
+			
+			global_userSavedSchoolList = retrieveSavedSchools
+			
 			#redirect back to savedlist page after unsaving is successful
 			return redirect(url_for('savedlist'))
 
