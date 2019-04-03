@@ -1,5 +1,6 @@
 #read
 import xlrd
+from sortingAndRelatedFunctions import findSchoolPostalCode, getLatLong
 
 wbCCA = xlrd.open_workbook('ccaOffered.xls')
 wsCCA = wbCCA.sheet_by_name('ccaOffered')
@@ -90,7 +91,7 @@ def subjectsOffered(school):
 def physicalCCAs(school):
     
     #instantiate empty cca list
-    caList = []
+    ccaList = []
     for i in range(1, 1456):
         schoolName = wsCCA.cell(i,2).value
         
