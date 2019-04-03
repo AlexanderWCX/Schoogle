@@ -100,7 +100,7 @@ class SearchByCForm(FlaskForm):
 
     list_of_gender = ["Boys' School", "Girls' School", 'Co-ed School']
     #create a list of value/description tuples
-    genderchoices = [(x, x) for x in list_of_types]
+    genderchoices = [(x, x) for x in list_of_gender]
     gender = MultiCheckboxField('Gender of Students', choices=genderchoices)
 
     list_of_focus = ['STEM', 'Languages & Humanities', 'Business & Entrepreneurship', 'Aesthetics', 'Humanities', 'Languages']
