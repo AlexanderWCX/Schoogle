@@ -12,8 +12,8 @@ from saveRemoveSchool import saveSchool, deleteSavedSchool
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, widgets, SelectMultipleField
 import globalvariables
 import globalupdater
-from sortingAndRelatedFunctions import getMap, retrieveSavedSchools, sortByAlphabetical, sortByDistance, sortBySavedDate, retrievePostalCode
-from schoolInfoFetching import website, generalInformation, subjectsOffered, physicalCCAs, artsCCAs, clubCCAs, uniformCCAs, contactInfo, gettingThere
+from sortingAndRelatedFunctions import retrieveSavedSchools, sortByAlphabetical, sortByDistance, sortBySavedDate, retrievePostalCode
+from schoolInfoFetching import getMap, website, generalInformation, subjectsOffered, physicalCCAs, artsCCAs, clubCCAs, uniformCCAs, contactInfo, gettingThere
 from datetime import datetime
 
 # create a flask object
@@ -128,23 +128,23 @@ def searchByCpage():
 	if form.validate_on_submit():
 		# get list of sports CCAs that was selected
 		sports = form.sports.data
-		#print(sports)
+		
 
 		# get list of visual & performing arts CCAs that was selected
 		arts = form.arts.data
-		#print(arts)
+		
 
 		# get list of uniformed group CCAs that was selected
 		uniformed = form.uniformed.data
-		#print(uniformed)
+		
 
 		# get list of clubs & societies CCAs that was selected
 		societies = form.societies.data
-		#print(societies)
+		
 
 		# get list of others CCAs that was selected
 		others = form.others.data
-		#print(others)
+		
 		
 		#prepare lists to feed into searchByC function
 		ccaList = sports + arts + uniformed + societies + others
@@ -152,15 +152,22 @@ def searchByCpage():
 		typeList = form.types.data
 		genderList = form.gender.data
 		focusList = form.focus.data
-	
+
+		#get final list of schools that match all criterias
 		resultslist = searchByC(ccaList, subjectList, typeList, genderList, focusList)
+		
+		#set global list of schools variable to the resultant list of schools
 		global global_list_of_schools
 		global_list_of_schools = resultslist
 
+		#get global email
 		global global_email
+
+		#redirect to normal results page if not logged in
 		if global_email == "NIL":
 			return redirect(url_for('results'))
 		
+		#redirect to logged in results page if logged in
 		else:
 			return redirect(url_for('loggedinresults'))
 
@@ -185,17 +192,19 @@ def searchByNpage():
 
 		# the user input data will be found in the request object that flask automatically creates
 		keyword = request.form['keyword']
+
+		#input keyword into searchByN function to get list of schools containing the keyword
 		resultslist = searchByN(keyword)
 		global_list_of_schools = resultslist
 
-		#print(resultslist)
-		#print('setting global variable successful')
-		#print(global_list_of_schools)
-
+		#get global email
 		global global_email
+
+		#redirect to normal results page if not logged in
 		if global_email == "NIL":
 			return redirect(url_for('results'))
 		
+		#redirect to logged in results page if logged in
 		else:
 			return redirect(url_for('loggedinresults'))
 		
@@ -205,71 +214,99 @@ def searchByNpage():
 @app.route('/savedlist', methods=['get', 'post'])
 def savedlist():
 
+	#get global email
 	global global_email
+
+	#redirect to error page if not logged in
 	if global_email == "NIL":
 		return redirect(url_for('notloggedin'))
 	
+	#set hasPostalCode variable to a have a default value of True
 	hasPostalCode = True
 
+	#get global userPostalCode
 	global userPostalCode
 	userPostalCode = retrievePostalCode(global_email)
+
+	#if registered user did not register their postal code, set hasPostalCode to false
 	if userPostalCode == "null":
 		hasPostalCode = False
 
+	#get user's list of saved schools
 	global global_userSavedSchoolList
-	#global_userSavedSchoolList = retrieveSavedSchools(global_email)
 	schoolList = global_userSavedSchoolList
-	#print(global_userSavedSchoolList)
-
+	
+	#in the event of any POST method
 	if request.method == 'POST':
 
+		#get list of keys from the form
 		list = request.form
-		#print(list)
 		keys = list.keys()
 
+		#get list of schools to unsave from the form
 		schoolToUnsaveList = request.form.getlist('unsaveList')
-		#print(schoolToUnsaveList)
+		
+		#if user has selected any schools to unsave
 		if schoolToUnsaveList:
+			
+			#unsave all selected schools
 			for school in schoolToUnsaveList:
 				unsaveStatus = deleteSavedSchool(global_email, school)
-				#print(unsaveStatus)
-
+				
+			#redirect back to savedlist page after unsaving is successful
 			return redirect(url_for('savedlist'))
 
+		#else if the list of keys from the form is not empty
 		elif keys:
 
 			alphabetical = "alphabetical"
 			distance = "distance"
 			savedDate = "saveddate"
 
+			#if the key named 'alphabetical' is in the list
 			if alphabetical in list:
+				
+				#sort list of schools alphabetically
 				global_userSavedSchoolList = sortByAlphabetical(schoolList)
-				#print(global_userSavedSchoolList)
+				
+				#redirect to savedlist page
 				return redirect(url_for('savedlist'))
 
+			#if the key named 'distance' is in the list
 			elif distance in list:
+
+				#sort list of schools in terms of increasing distance
 				sortedList = sortByDistance(global_userSavedSchoolList, userPostalCode)
+				
+				#get sorted list of schools
 				global_userSavedSchoolList =sortedList[0]
 				
-				#print(schoolList)
+				#redirect to savedlist page
 				return redirect(url_for('savedlist'))
 			
+			#if the key named 'savedDate' is in the list
 			elif savedDate in list:
+
+				#sort list of schools in terms of saved date
 				sortedList = sortBySavedDate(global_email)
+
+				#get list of sorted schools
 				global_userSavedSchoolList =sortedList[0]
-				#print(schoolList)
+				
+				#redirect to savedlist page
 				return redirect(url_for('savedlist'))
 
+			#if 'more information' button is clicked
 			else:
-
+				
+				#get school that user clicked on
 				for key in keys:
 					school = key
 				
-				#print(school)
-
 				global clickedschool
 				clickedschool = school
 
+				#redirect to schoolinfo of clicked school
 				return redirect(url_for('schoolinfo', clickedschool = clickedschool))
 
 
@@ -283,33 +320,40 @@ def notloggedin():
 @app.route('/results', methods=['get', 'post'])
 def results():
 
+	#get list of schools to display
 	global global_list_of_schools
 	schoolList = global_list_of_schools
-	#print('im in results route')
 	
+	#in the event of any POST method
 	if request.method == 'POST':
+		
+		#get list of keys from the form
 		list = request.form
-		#print(list)
 		keys = list.keys()
-		#print(keys)
 		
 		alphabetical = "alphabetical"
 
+		#if the key named 'alphabetical' is in the list
 		if alphabetical in list:
+			
+			#sort list of schools alphabetically
 			global_list_of_schools = sortByAlphabetical(schoolList)
-			#print(schoolList)
+			
+			#redirect to savedlist page
 			return redirect(url_for('results'))
 
+		#if 'more information' button is clicked
 		else:
+			
+			#get school that user clicked on
 			for key in keys:
-				#print(key)
 				school = key
-				#print(school)
+			
+			global clickedschool
+			clickedschool = school
 
-				global clickedschool
-				clickedschool = school
-
-				return redirect(url_for('schoolinfo', global_list_of_schools= global_list_of_schools))
+			#redirect to schoolinfo of clicked school
+			return redirect(url_for('schoolinfo', global_list_of_schools= global_list_of_schools))
 		
 	return render_template('results.html', schoolList = schoolList)
 			
@@ -317,76 +361,100 @@ def results():
 @app.route('/loggedinresults', methods=['get', 'post'])
 def loggedinresults():
 
+	#get list of schools to display
 	global global_list_of_schools
 	schoolList = global_list_of_schools
 
+	#get email of logged in user
 	global global_email
 	usersemail = global_email
 
+	#set hasPostalCode variable to a have a default value of True
 	hasPostalCode = True
 
+	#get global userPostalCode
 	global userPostalCode
 	userPostalCode = retrievePostalCode(global_email)
+
+	#if registered user did not register their postal code, set hasPostalCode to false
 	if userPostalCode == "null":
 		hasPostalCode = False
 
+	#get list of schools saved by the user
 	userSavedList = retrieveSavedSchools(global_email)
 	
-
+	#in the event of any POST method
 	if request.method == 'POST':
 		
+		#get list of keys from the form
 		list = request.form
-		#print(list)
 		keys = list.keys()
 		
+		#get list of selected schools the user wishes to save
 		schoolToSaveList = request.form.getlist('schooloptions')
-		#print(schoolToSaveList)
-
+		
+		#if user has selected any schools to save
 		if schoolToSaveList:
+			
+			#save all selected schools
 			for school in schoolToSaveList:
+				
 				now = datetime.now()
-				#print(now)
 				savestatus = saveSchool(usersemail, school, now)
-				#print(savestatus)
-
+				
+			#redirect to resuts page
 			return redirect(url_for('loggedinresults'))
 
+		#else if the list of keys from the form is not empty
 		elif keys:
-
+			
 			alphabetical = "alphabetical"
 			distance = "distance"
 
+			#if the key named 'alphabetical' is in the list
 			if alphabetical in list:
+				
+				#sort list of schools alphabetically
 				global_list_of_schools = sortByAlphabetical(schoolList)
-				#print(schoolList)
+				
+				#redirect to savedlist page
 				return redirect(url_for('loggedinresults'))
 
+			#if the key named 'distance' is in the list
 			elif distance in list:
+
+				#sort list of schools by increasing distance
 				sortedList = sortByDistance(global_list_of_schools, userPostalCode)
+				
+				#get list of sorted schools
 				global_list_of_schools =sortedList[0]
 				
-				#print(schoolList)
+				#redirect to savedlist page
 				return redirect(url_for('loggedinresults'))
 
+			#if 'more information' button is clicked
 			else:
+
+				#get school that user clicked on
 				for key in keys:
 					
 					school = key
+
+				global clickedschool
+				clickedschool = school
 				
-					print(school)
-
-					global clickedschool
-					clickedschool = school
-
-					return redirect(url_for('schoolinfo', clickedschool=clickedschool))
+				#redirect to schoolinfo of clicked school
+				return redirect(url_for('schoolinfo', clickedschool=clickedschool))
 
 	return render_template('loggedinresults.html', global_list_of_schools = global_list_of_schools, userSavedList= userSavedList, hasPostalCode=hasPostalCode)
 
 @app.route('/schoolinfo')
 def schoolinfo():
 
+	#get name of clicked school
 	global clickedschool
 
+	#create map of clicked school
 	url = getMap(clickedschool)
 
 	# Getting information from databases
@@ -408,7 +476,7 @@ def schoolinfo():
 			message = "No information found"
 			schoolgeneralInfoList.append(message)
 
-		
+	#getting individual info from general information list
 	schooltype = schoolgeneralInfoList[0]
 	schooltype.title()
 	gender = schoolgeneralInfoList[1]
@@ -440,12 +508,12 @@ def schoolinfo():
 		message = "No information found"
 		schooluniformCCAs.append(message)
 		
-	
+	#getting individual info from contact info list
 	email = schoolcontactInfo[0]
 	telephone = schoolcontactInfo[1]
 	fax = schoolcontactInfo[2]
 		
-	
+	#getting individual info from getting there list
 	address = schoolgettingThere[0]
 	postalcode = schoolgettingThere[1]
 	nearestMRT = schoolgettingThere[2]
