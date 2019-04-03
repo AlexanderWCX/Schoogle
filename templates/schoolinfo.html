@@ -1,139 +1,101 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-    <!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_def.css') }}">
-			
+    
     <title>Schoogle - School Information</title>
-	<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-	 
   </head>
 
   <body>
-    <div class="container">     
-      <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-          <a class="navbar-brand" href="#">Schoogle</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Search by <span class="caret"></span></a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ url_for('searchByCpage') }}">CCAs</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{{ url_for('searchByNpage') }}">Name</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{{ url_for('searchByM') }}">Map</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-      </nav>
-    </div>
 
-    <div class="jumbotron">
-        <h1>{{ clickedschool }}</h1>
-        <a href="{{ schoolwebsite }}" target="_blank" class="small_letter">School Website</a>
-        <!-- <img class="homepage" src="{{url_for('static', filename='homepage.svg')}}"> -->
+    <h1>{{ clickedschool }}</h1>
+    <a href="{{ schoolwebsite }}">School Website</a>
 
+    <br />
+    <iframe src="{{ url }}" height=450px width=450px scrolling='no' frameborder='0' allowfullscreen='allowfullscreen'></iframe>
+    <br />
+
+
+    <h2>General Information</h2>
+    <p> {{ schooltype }} | {{ gender }} </p>
+    <p> Principal</p>
+    <p> {{ principal }}</p>
+    <p> Vision</p>
+    <p> {{ vision }}</p>
+    <p> Mission</p>
+    <p> {{ mission }}</p>
+    <p> School Philosophy, Culture and Ethos </p>
+    <p> {{ philosophy }}</p>
+
+    <br />
+    <br />
+
+    <h2>Subjects Offered</h2>
+    {% for subject in subjectList %}
+        {{ subject }}
         <br />
+    {% endfor %}
+
+    <br />
+    <br />
+
+    <h2>CCAs Offered</h2>
+    <h3>Physical Sports</h3>
+    {% for sport in schoolphysicalCCAs %}
+        {{ sport }}
         <br />
-            
-        <div class="g">
+    {% endfor %}
 
-            <iframe src="{{ url }}" height=450px width=450px scrolling='no' frameborder='0' allowfullscreen='allowfullscreen' style="float: right; margin-left=10px;"></iframe>
+    <br />
+
+    <h3>Visual and Performing Arts</h3>
+    {% for art in schoolartsCCAs %}
+        {{ art }}
+        <br />
+    {% endfor %}
+
+    <br />
     
-            <p style="text-align:left; font-size:30px; text-decoration:underline;">General Information</p>
-            <p style="text-align:left; font-size: 22px; margin-left:10px;"> {{ schooltype }} | {{ gender }} </p>
-            <p style="text-align:left; font-size:26px;"> Principal<br/>
-            <span style="font-size:22px; margin-left:10px;"> {{ principal }} </span></p>
-            <p style="text-align:left; font-size:26px;"> Vision<br/>
-            <span style="font-size: 22px; margin-left:10px;"> {{ vision }} </span></p>
-            <p style="text-align:left; font-size:26px;"> Mission<br/>
-            <span style="font-size: 22px; margin-left:10px;"> {{ mission }} </span></p>
-            <p style="text-align:left; font-size:26px;"> School Philosophy, Culture and Ethos<br/>
-            <span style="font-size: 22px; margin-left:10px;"> {{ philosophy }} </span></p>
+    <h3>Clubs & Societies</h3>
+    {% for club in schoolclubCCAs %}
+        {{ club }}
+        <br />
+    {% endfor %}
 
-            <br />
-
-            <p style="text-align:left; text-decoration:underline;">Subjects Offered
-                    {% for subject in subjectList %}
-                        <div style="text-align:left; font-size: 22px; margin-left:10px;">{{ subject }}</div>
-                    {% endfor %}
-            </p>
-            
-            <br />
-            
-            <p>
-                <p style="text-align:left; font-size:30px; text-decoration:underline;">CCAs Offered</p>
-
-                <div style="text-align:left; font-size:26px;">Physical Sports</div>
-                {% for sport in schoolphysicalCCAs %}
-                    <div style="text-align:left; font-size: 22px; margin-left:10px;">{{ sport }}</div>
-                {% endfor %}
-                
-                <br />
-
-                <div style="text-align:left; font-size:26px;">Visual and Performing Arts</div>
-                {% for art in schoolartsCCAs %}
-                    <div style="text-align:left; font-size: 22px; margin-left:10px;">{{ art }}</div>
-                {% endfor %}
-
-                <br />
-            
-                <div style="text-align:left; font-size:26px;">Clubs & Societies </div>
-                {% for club in schoolclubCCAs %}
-                    <div style="text-align:left; font-size: 22px; margin-left:10px;">{{ club }}</div>
-                {% endfor %}
-
-                <br />
-            
-                <div style="text-align:left; font-size:26px;">Uniformed Groups </div>
-                {% for uniform in schooluniformCCAs %}
-                    <div style="text-align:left; font-size: 22px; margin-left:10px;">{{ uniform }}</div>
-                {% endfor %}
-
-            </p>
-
-            <br />
-
-            <p style="text-align:left; font-size:30px; text-decoration:underline;">Contact Information</p>
-            <p style="text-align:left; font-size:26px;">Email<br/>
-            <span style="font-size: 22px; margin-left:10px;"> {{ email }} </span></p>
-            <p style="text-align:left; font-size:26px;">Telephone<br/>
-            <span style="font-size: 22px; margin-left:10px;"> {{ telephone }} </span></p>
-            <p style="text-align:left; font-size:26px;">Fax<br/>
-            <span style="font-size: 22px; margin-left:10px;"> {{ fax }} </span></p>
-
-            <br />
-
-            <p style="text-align:left; font-size:30px; text-decoration:underline;">Getting There</p>
-            <p style="text-align:left; font-size:26px;">Address<br/>
-            <span style="font-size: 22px; margin-left:10px;">{{ address }}, Singapore {{ postalcode }}</span></p>
-            <p style="text-align:left; font-size:26px;">Nearest MRT<br/>
-            <span style="font-size: 22px; margin-left:10px;">{{ nearestMRT }}</span></p>
-            <p style="text-align:left; font-size:26px;">Bus Services<br/>
-            <span style="font-size: 22px; margin-left:10px;">{{ buses }}</span></p>
-
-            <br />
-        </div>
-        
-
-    </div>
+    <br />
     
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <h3>Uniformed Groups</h3>
+    {% for uniform in schooluniformCCAs %}
+        {{ uniform }}
+        <br />
+    {% endfor %}
+
+    <br />
+    <br />
+
+    <h2>Contact Information</h2>
+    <p>Email</p>
+    <p> {{ email }}</p>
+    <p>Telephone</p>
+    <p> {{ telephone }}</p>
+    <p>Fax</p>
+    <p> {{ fax }}</p>
+
+    <br />
+    <br />
+
+    <h2>Getting There</h2>
+    <p>Address</p>
+    <p>{{ address }}, Singapore {{ postalcode }}</p>
+    <p>Nearest MRT</p>
+    <p>{{ nearestMRT }}</p>
+    <p>Bus Services</p>
+    <p>{{ buses }}</p>
+
+    <br />
+    <br />
+
+
+
     
   </body>
 </html>
