@@ -49,12 +49,11 @@
 					<!--//please refer to code if unsure, it has to be this way-->
 					<!--//can design it using bootstrap/css, preferably bootstrap-->
 					<!--//bring in the email object which will handle user input and validation--> 
+					
 					<label for="Email">{{ form.email.label }}</label> <br/>
-
-					<div style="font-size: 20px;">
-						<!--//email object handles the user input-->
-						{{ form.email }}
-					</div>
+					
+					<!--//email object handles the user input-->
+					{{ form.email }}
 					
 					<small class="form-text text-muted"> Please enter an email address that has not been registered with us</small>
 				
@@ -70,9 +69,7 @@
 				<div class="form-group">
 					<label for="Password">{{ form.password.label }}</label> <br/>
 
-					<div style="font-size: 20px;">
-						{{ form.password }}
-					</div>
+					{{ form.password }}
 
 					<small class="form-text text-muted"> The password must be between 8 and 12 characters long, and must contain exactly 1 uppercase letter and 1 digit </small>
 				
@@ -88,9 +85,7 @@
 				<div class="form-group">
 					<label for="PasswordConfirm">{{ form.confirmPassword.label }}</label> <br/>
 
-					<div style="font-size: 20px;">
-						{{ form.confirmPassword }}
-					</div>
+					{{ form.confirmPassword }}
 					
 					{% if form.confirmPassword.errors %} 
 					
@@ -104,9 +99,7 @@
 				<div class="form-group">
 					<label for="PostalCode">{{ form.postalCode.label }}</label> <br/>
 						
-					<div style="font-size: 20px;">
-						{{ form.postalCode }}
-					</div>
+					{{ form.postalCode }}
 					
 					{% if form.postalCode.errors %} 
 						
