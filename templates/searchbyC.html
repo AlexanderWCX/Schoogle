@@ -43,24 +43,69 @@
     <div class="jumbotron">
 
       <h1 style="display:inline;">Search By Criteria</h1>
-
+      <br/>
+      
       <form method='post', action=''>
         
         <fieldset>
-          <legend>CCAs</legend>
+          <legend style="display:none;">CCAs</legend>
             {{ form.hidden_tag() }} <!--//deep concept that we do not need to understand, just add it in for now--> 
             
-            <ul>
-              <li>{{ form.sports.label }}</li>
-              <li>{{ form.arts.label }}</li>
-              <li>{{ form.uniformed.label }}</li>
-              <li>{{ form.societies.label }}</li>
-              <li>{{ form.subjects.label }}</li>
-              <li>{{ form.types.label }}</li>
-              <li>{{ form.gender.label }}</li>
-              <li>{{ form.focus.label }}</li>
+            <ul class="nav nav-tabs" style="margin-bottom:20px; ">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#sports" style="font-size: 25px;">{{ form.sports.label }}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#arts" style="font-size: 25px;">{{ form.arts.label }}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#uniformed" style="font-size: 25px;">{{ form.uniformed.label }}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#societies" style="font-size: 25px;">{{ form.societies.label }}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#subjects" style="font-size: 25px;">{{ form.subjects.label }}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#types" style="font-size: 25px;">{{ form.types.label }}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#gender" style="font-size: 25px;">{{ form.gender.label }}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#focus" style="font-size: 25px;">{{ form.focus.label }}</a>
+              </li>
             </ul>
-            
+
+            <div id="myTabContent" class="tab-content">
+              <div class="tab-pane fade active show" id="sports">
+                <span style="font-size: 20px; width:120%;">{{ form.sports }}</span>
+              </div>
+              <div class="tab-pane fade" id="arts">
+                <span style="font-size: 20px;">{{ form.arts }}  </span>
+              </div>
+              <div class="tab-pane fade" id="uniformed">
+                <span style="font-size: 20px;">{{ form.uniformed }}</span>
+              </div>
+              <div class="tab-pane fade" id="societies">
+                <span style="font-size: 20px;">{{ form.societies }}</span>
+              </div>
+              <div class="tab-pane fade" id="subjects">
+                <span style="font-size: 20px;">{{ form.subjects }}</span>
+              </div>
+              <div class="tab-pane fade" id="types">
+                <span style="font-size: 20px;">{{ form.types }}</span>
+              </div>
+              <div class="tab-pane fade" id="gender">
+                <span style="font-size: 20px;">{{ form.gender }}</span>
+              </div>
+              <div class="tab-pane fade" id="focus">
+                <span style="font-size: 20px;">{{ form.focus }}</span>
+              </div>
+            </div>
+
+            <!-- 
             <div style="font-size: 25px;">{{ form.sports.label }}</div>
             <span style="font-size: 20px;">{{ form.sports }}</span>
 
@@ -84,6 +129,7 @@
 
             <div style="font-size: 25px;">{{ form.focus.label }}</div>
             <span style="font-size: 20px;">{{ form.focus }}</span>
+            -->
         </fieldset>
 
         <input class="btn btn-primary btn-lg" type="submit" value="Submit">
