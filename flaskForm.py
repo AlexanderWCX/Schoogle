@@ -4,8 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, widgets, SelectMultipleField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, Optional
 from customValidators import PasswordSecurity
-import globalvariables
-import globalupdater
+
 
 
 
@@ -112,13 +111,7 @@ class SearchByCForm(FlaskForm):
     submit = SubmitField('Submit!')
 
 
-class SaveSchoolsForm(FlaskForm):
 
-    resultslist = globalvariables.school_list
-    #print('im reading at flaskform')
-    #print(resultslist)
-    schoolchoices = [(x, x) for x in resultslist]
-    schools = MultiCheckboxField('Results', choices=schoolchoices)
 
     
 

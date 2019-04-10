@@ -1,7 +1,7 @@
 # import relevant stuff
 # all imported modules must be placed in python34/lib/site-packages or it will not be found
 from flask import Flask, render_template, url_for, request, redirect, flash
-from flaskForm import RegistrationForm, LoginForm, SearchByNForm, SearchByCForm, SaveSchoolsForm
+from flaskForm import RegistrationForm, LoginForm, SearchByNForm, SearchByCForm
 from wtforms import SelectMultipleField
 from flask_wtf import FlaskForm
 from newUser import writeNewUserToDB
@@ -10,8 +10,6 @@ from searchByN import searchByN
 from searchByC import searchByC
 from saveRemoveSchool import saveSchool, deleteSavedSchool
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, widgets, SelectMultipleField
-import globalvariables
-import globalupdater
 from sortingAndRelatedFunctions import retrieveSavedSchools, sortByAlphabetical, sortByDistance, sortBySavedDate, retrievePostalCode
 from schoolInfoFetching import getMap, website, generalInformation, subjectsOffered, physicalCCAs, artsCCAs, clubCCAs, uniformCCAs, contactInfo, gettingThere
 from datetime import datetime
