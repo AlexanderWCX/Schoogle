@@ -3,4 +3,4 @@ Schoogle is a web application to assist parents in browsing for secondary school
 Done by a small team of 4 over a period of 1 month.
 
 Youtube link for demonstration video:
-https://www.youtube.com/watch?v=3OyogOIZM9Q&feature=youtu.be
+https://www.youtube.com/watch?v=XWZ4I8z3ijg
