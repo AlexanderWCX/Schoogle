@@ -1,6 +1,7 @@
-# Schoogle-2006_project-
+# Schoogle
 
-customValidators, newUser, and flaskForm, verifyEmailAndPassword modules should be placed in python34/lib/site-packages or wherever the rest of the modules that can be imported are
-found. 
+Schoogle is a web application to assist parents in browsing for secondary schools in Singapore. Implemented with Flask and incorporating data.gov.sg’s School Directory and Information API and oneMap’s API.
 
-read_db.py, getDistance.py, write_existingdb.py and userInfo(use userInformation instead) database are useless. 
+Done by a small team of 4 over a period of 1 month.
+
+Youtube link for demonstration video: https://www.youtube.com/watch?v=XWZ4I8z3ijg
