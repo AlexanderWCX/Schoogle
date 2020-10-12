@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+    <html>
+      <body>
+      <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>  
+      <script>
+        //This is for html page (ajax)
+        var form = new FormData();
+        form.append("email", "danyi1998@gmail.com");
+        form.append("password", "");
+
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://developers.onemap.sg/privateapi/auth/post/getToken",
+          "method": "POST",
+          "processData": false,
+          "contentType": false,
+          "mimeType": "multipart/form-data",
+          "data": form
+        }
+
+        $.ajax(settings).done(function (response) {
+          document.write(response);
+        });
+      </script>
+
+      </body>
+    </html>
